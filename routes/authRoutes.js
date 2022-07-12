@@ -7,6 +7,7 @@ const {
   getLoginForm,
   registration,
   login,
+  logout,
 } = require('../controllers/authController');
 
 router
@@ -18,5 +19,9 @@ router
   .route('/login')
   .get(getLoginForm)
   .post(login);
+
+// router.get('/refresh')
+
+router.get('/logout', logout);
 
 module.exports = router;
