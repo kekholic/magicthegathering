@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Collections', {
@@ -6,7 +5,7 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       title: {
         type: Sequelize.STRING,
@@ -14,11 +13,11 @@ module.exports = {
       },
       count: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        defaultValue: 0,
       },
       price: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        defaultValue: 0,
       },
       userId: {
         type: Sequelize.INTEGER,
@@ -26,19 +25,19 @@ module.exports = {
         references: {
           model: 'Users',
           key: 'id',
-        }
+        },
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Collections');
-  }
+  },
 };

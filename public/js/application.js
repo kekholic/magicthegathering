@@ -1,9 +1,27 @@
-console.log('perdim');
-
 const container = document.querySelector('.container');
 
 container.addEventListener('click', async (event) => {
   event.preventDefault();
+  const userId = 1;
+  // button create collection FETCH
+  if (event.target.dataset.idButton === 'create-button') {
+    const titleNewCollection = document.querySelector("[data-id-input = 'create-input']").value;
+
+    const responce = await fetch(`/${userId}/collections/new`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        userId,
+        title: titleNewCollection,
+      }),
+    });
+    /// OSTANOVILSYA ZZDES'
+    newCollectionId = await responce.json();
+  }
+
+  // search smth for route /users/:id/collections/new w/o any fetch
   if (event.target.dataset.idButton === 'search-button') {
     const input = document.querySelector("[data-id-search = 'search-input']");
     const cardDiv = document.querySelector('#card-list');
