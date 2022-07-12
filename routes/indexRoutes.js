@@ -1,11 +1,7 @@
-const express = require('express');
-const route = express.Router();
+const router = require('express').Router();
 
-const render = require('../lib/render');
-const Index = require('../views/Index');
+const { redirectHomeController } = require('../controllers/indexController');
 
-route.get('/', (req, res) => {
-  render(Index, {title: 'Welcome to Express - ReactSSR'}, res)
-  })
+router.get('/', redirectHomeController);
 
-module.exports = route;
+module.exports = router;
