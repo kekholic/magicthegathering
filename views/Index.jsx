@@ -1,7 +1,7 @@
 const React = require('react');
 const Layout = require('./Layout');
 
-function Index({title}) {
+function Index({ title }) {
   return (
     <Layout>
       <div>
