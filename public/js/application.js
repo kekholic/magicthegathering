@@ -6,8 +6,8 @@ container.addEventListener('click', async (event) => {
   // button create collection FETCH
   if (event.target.dataset.idButton === 'create-button') {
     const titleNewCollection = document.querySelector("[data-id-input = 'create-input']").value;
-
-    const responce = await fetch(`/${userId}/collections/new`, {
+    // отправляем фетч с созданием новой коллекции
+    const response = await fetch(`http://localhost:3000/users/${userId}/collections/new`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -17,8 +17,12 @@ container.addEventListener('click', async (event) => {
         title: titleNewCollection,
       }),
     });
-    /// OSTANOVILSYA ZZDES'
-    newCollectionId = await responce.json();
+    const { collectionId } = await response.json();
+    // отправляем гет запрос на отрисовку создания новой коллекции
+    const repsonse1 = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new/fetch`);
+    const { html } = await repsonse1.json();
+    container.innerHTML = html;
+    window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}/new/fetch`);
   }
 
   // search smth for route /users/:id/collections/new w/o any fetch
