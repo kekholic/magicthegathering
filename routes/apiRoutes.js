@@ -4,8 +4,12 @@ const apiRoutes = express.Router();
 
 const fetch = require('node-fetch');
 
-apiRoutes.get('/search', async (req, res) => {
-  const response = await fetch('https://api.scryfall.com/cards/f295b713-1d6a-43fd-910d-fb35414bf58a');
+const parser = require('../lib/parseToQuery');
+
+apiRoutes.get('/search/:str', async (req, res) => {
+  // console.log(req.params);
+  const string = parser(req.params.str);
+  const response = await fetch(`https://api.scryfall.com/cards/search?q=${string}`);
   const result = await response.json();
   res.json(result);
 });
