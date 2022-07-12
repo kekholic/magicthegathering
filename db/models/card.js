@@ -1,22 +1,21 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Card extends Model {
-
     static associate({ Collection }) {
-      this.belongsToMany(Collection, { through: 'CardInCollection', foreignKey: 'cardId' })
+      this.belongsToMany(Collection, { through: 'CardInCollection', foreignKey: 'cardId' });
     }
   }
   Card.init({
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     image: {
