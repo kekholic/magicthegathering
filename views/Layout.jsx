@@ -2,7 +2,7 @@ const React = require('react');
 
 function Layout({ title, children }) {
   return (
-    <html lang="en">
+    <html lang="ru">
       <head>
         <meta charSet="UTF-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />

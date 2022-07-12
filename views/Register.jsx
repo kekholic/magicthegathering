@@ -15,7 +15,7 @@ module.exports = function getRegisterForm() {
         <label htmlFor="inputPasswordRegister" className="form-label">Введите пароль:</label>
         <input type="password" className="form-control" id="inputPasswordRegister" />
       </div>
-      <button type="submit" className="btn btn-primary">Submit</button>
+      <button type="submit" id='getRegister' className="btn btn-primary">Отправить</button>
     </form>
   );
 };
