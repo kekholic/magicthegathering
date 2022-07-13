@@ -9,13 +9,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Card.init({
-    name: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       allowNull: false,
     },
     image: {

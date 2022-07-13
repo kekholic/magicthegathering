@@ -13,11 +13,11 @@ module.exports = {
       },
       count: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        defaultValue: 0,
       },
       price: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        defaultValue: 0,
       },
       userId: {
         type: Sequelize.INTEGER,

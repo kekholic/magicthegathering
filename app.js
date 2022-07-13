@@ -1,10 +1,11 @@
+require('@babel/register');
+require('dotenv').config();
+
+const morgan = require('morgan');
+const path = require('path');
 const express = require('express');
 
 const app = express();
-require('@babel/register');
-const morgan = require('morgan');
-const path = require('path');
-require('dotenv').config();
 
 const session = require('express-session');
 
@@ -14,6 +15,11 @@ const sessionConfig = require('./lib/sessionConfig');
 
 // импорт роутов
 const indexRoutes = require('./routes/indexRoutes');
+
+const usersRoutes = require('./routes/usersRoutes');
+// const apiRoutes = require('./routes/apiRoutes');
+const apiRoutes = require('./routes/apiRoutes');
+
 const homeRouters = require('./routes/homeRouters');
 const authRoutes = require('./routes/authRoutes');
 
@@ -25,6 +31,10 @@ app.use(session(sessionConfig));
 
 // роутеры
 app.use('/', indexRoutes);
+
+app.use('/users', usersRoutes);
+app.use('/api', apiRoutes);
+
 app.use('/home', homeRouters);
 app.use('/auth', authRoutes);
 

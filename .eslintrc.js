@@ -1,7 +1,9 @@
 module.exports = {
   env: {
     browser: true,
+
     commonjs: true,
+
     es2021: true,
     node: true,
   },
@@ -14,11 +16,19 @@ module.exports = {
       jsx: true,
     },
     ecmaVersion: 'latest',
+
+    sourceType: 'module',
+
   },
   plugins: [
     'react',
   ],
   rules: {
     'no-console': 0,
+    'react/prop-types': 0,
+    'react/jsx-one-expression-per-line': 0,
+    'jsx-a11y/label-has-associated-control': 0,
+    'jsx-a11y/tabindex-no-positive': 0,
+
   },
 };
