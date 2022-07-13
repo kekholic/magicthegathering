@@ -4,7 +4,9 @@ function CardInCollectionItem({ card }) {
   return (
     <div className="col">
       <div className="card">
-        <img src={`${card.image}`} alt="cardImage" />
+        <p className="card-text">{`${card.ownedCount}`}</p>
+        <img data-card-id={`${card['Cards.id']}`} src={`${card['Cards.image']}`} alt="cardImage" />
+        <button className="incrementButton btn btn-light" type="button">add</button>
       </div>
     </div>
   );

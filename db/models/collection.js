@@ -4,9 +4,9 @@ const {
 
 module.exports = (sequelize, DataTypes) => {
   class Collection extends Model {
-    static associate({ User, Card }) {
-      this.belongsTo(User, { foreignKey: 'userId' });
-      this.belongsToMany(Card, { through: 'CardInCollection', foreignKey: 'collectionId' });
+    static associate(models) {
+      this.belongsTo(models.User, { foreignKey: 'userId' });
+      this.belongsToMany(models.Card, { through: models.CardInCollection, foreignKey: 'collectionId', otherKey: 'cardId' });
     }
   }
   Collection.init({

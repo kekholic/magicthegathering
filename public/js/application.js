@@ -87,7 +87,6 @@ container.addEventListener('click', async (event) => {
     const collectionPrice = event.target.previousElementSibling.dataset.price;
     // достаем ссылку на картинку, которую будем добавлять в дб
     const img = event.target.previousElementSibling.src;
-    console.log('before fetch');
     const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new`, {
       method: 'POST',
       headers: {
@@ -107,7 +106,10 @@ container.addEventListener('click', async (event) => {
   if (event.target.dataset.editColl === 'edit-coll') {
     // eslint-disable-next-line max-len
     const collectionId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
-    // const response = await fetch('');
+    const response = await fetch(`http://localhost:3000/users/1/collections/${collectionId}/fetch`);
+    const html = await response.json();
+    container.innerHTML = html.html;
+    window.history.pushState(null, null, `http://localhost:3000/users/1/collections/${collectionId}`);
   }
 
   // перейти к форме регистрации
