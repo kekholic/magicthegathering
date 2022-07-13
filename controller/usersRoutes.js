@@ -30,6 +30,13 @@ const showAllCollections = async (req, res) => {
   render(Collections, { collections }, res);
 };
 
+const deleteCollection = async (req, res) => {
+  const { id } = req.body;
+  console.log(id);
+  await Collection.destroy({ where: { id } });
+  res.status(200).json();
+};
+
 /* -------------------------------------- */
 
 // отрисовываем стринацу конкретной коллекции
@@ -51,9 +58,10 @@ const showCardsInOneCollectionFetch = async (req, res) => {
     raw: true,
   });
   if (allCards[0]['Cards.id']) return renderFetch(CardsInCollectionFetch, { allCards }, res);
-
   return renderFetch(CardsInCollectionFetch, {}, res);
 };
+
+//
 
 /* -------------------------------------- */
 
@@ -74,13 +82,18 @@ const createNewCardAndCiC = async (req, res) => {
   // записываем карточку в дб или ищем существующую
   const card = await Card.findOrCreate({ where: { title, price, image }, raw: true });
   const cardId = card[0].id;
+  const doWeHave = await CardInCollection.findOne({ where: { collectionId, cardId } });
   // записываем промежуточную таблицу
-  await CardInCollection.create({ collectionId, cardId });
-  const curretnCol = await Collection.findOne({ where: { id: collectionId } });
-  curretnCol.allCount += 1;
-  curretnCol.price = String((Number(curretnCol.price) + Number(price)).toFixed(2));
-  await curretnCol.save();
-  res.status(200).json();
+  if (!doWeHave) {
+    await CardInCollection.create({ collectionId, cardId });
+    const curretnCol = await Collection.findOne({ where: { id: collectionId } });
+    curretnCol.allCount += 1;
+    curretnCol.price = String((Number(curretnCol.price) + Number(price)).toFixed(2));
+    await curretnCol.save();
+    res.status(200).json();
+  } else {
+    res.status(200).json();
+  }
 };
 
 module.exports = {
@@ -91,4 +104,5 @@ module.exports = {
   createNewCardAndCiC,
   showCardsInOneCollection,
   showCardsInOneCollectionFetch,
+  deleteCollection,
 };

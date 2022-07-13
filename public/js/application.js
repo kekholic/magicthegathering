@@ -106,12 +106,29 @@ container.addEventListener('click', async (event) => {
   if (event.target.dataset.editColl === 'edit-coll') {
     // eslint-disable-next-line max-len
     const collectionId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
-    const response = await fetch(`http://localhost:3000/users/1/collections/${collectionId}/fetch`);
+    const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`);
     const html = await response.json();
     container.innerHTML = html.html;
-    window.history.pushState(null, null, `http://localhost:3000/users/1/collections/${collectionId}`);
+    window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}`);
   }
-
+  // удаление коллекции из дб и страницы
+  if (event.target.dataset.deleteColl === 'delete-coll') {
+    // eslint-disable-next-line max-len
+    const collectionId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
+    const cardBody = event.target.parentElement.parentElement.parentElement;
+    const response = await fetch(`http://localhost:3000/users/${userId}/collections/fetch`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: collectionId,
+      }),
+    });
+    if (response.status === 200) {
+      cardBody.remove();
+    }
+  }
   // перейти к форме регистрации
   if (event.target.id === 'go-register') {
     try {
