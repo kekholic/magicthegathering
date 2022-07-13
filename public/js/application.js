@@ -1,9 +1,86 @@
 const container = document.querySelector('.container');
+const containerFluid = document.querySelector('.container-fluid');
+const logoutBtn = document.querySelector('#getLogout');
+
+let userId;
 
 container.addEventListener('click', async (event) => {
   event.preventDefault();
 
-  const userId = 1;
+  // перейти к форме регистрации
+  if (event.target.id === 'go-register') {
+    try {
+      const response = await fetch('/auth/register');
+      const { html } = await response.json();
+      container.innerHTML = html;
+      window.history.pushState(null, null, '/auth/register');
+    } catch (error) {
+      console.log('error: ', error.message);
+    }
+  }
+  // зарегистрироваться
+  if (event.target.id === 'getRegister') {
+    const name = document.querySelector('#inputNameRegister').value;
+    const login = document.querySelector('#inputLoginRegister').value;
+    const password = document.querySelector('#inputPasswordRegister').value;
+    try {
+      const response = await fetch('/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          login,
+          password,
+        }),
+      });
+      if (response.status === 401) console.log('Невалидные данные');
+      else {
+        const { html, id } = await response.json();
+        container.innerHTML = html;
+        logoutBtn.hidden = false;
+        userId = id
+        // window.history.pushState(null, null, '/auth/login');
+      }
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  }
+  // перейти к форме логина
+  if (event.target.id === 'go-login') {
+    try {
+      const response = await fetch('/auth/login');
+      const { html } = await response.json();
+      container.innerHTML = html;
+      window.history.pushState(null, null, '/auth/login');
+    } catch (error) {
+      console.log('error: ', error.message);
+    }
+  }
+  // залогиниться
+  if (event.target.id === 'getLogin') {
+    const login = document.querySelector('#inputLoginLogin').value;
+    const password = document.querySelector('#inputPasswordLogin').value;
+    try {
+      const response = await fetch('/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          login,
+          password,
+        }),
+      });
+      const { html, id } = await response.json();
+      container.innerHTML = html;
+      logoutBtn.hidden = false;
+      userId = id
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  }
   // button create collection FETCH
   if (event.target.dataset.idButton === 'create-button') {
     const titleNewCollection = document.querySelector("[data-id-input = 'create-input']").value;
@@ -101,74 +178,37 @@ container.addEventListener('click', async (event) => {
       }),
     });
   }
-  // перейти к форме регистрации
-  if (event.target.id === 'go-register') {
+});
+
+// Добавление выйти из сессии
+containerFluid.addEventListener('click', async (event) => {
+  event.preventDefault();
+  if (event.target.id === 'getLogout') {
     try {
-      const response = await fetch('/auth/register');
+      const response = await fetch('/auth/logout');
       const { html } = await response.json();
       container.innerHTML = html;
-      window.history.pushState(null, null, '/auth/register');
+      logoutBtn.hidden = true;
     } catch (error) {
       console.log('error: ', error.message);
     }
   }
-  // зарегистрироваться
-  if (event.target.id === 'getRegister') {
-    const name = document.querySelector('#inputNameRegister').value;
-    const login = document.querySelector('#inputLoginRegister').value;
-    const password = document.querySelector('#inputPasswordRegister').value;
+  if (event.target.id === 'getLogoutCollect') {
     try {
-      const response = await fetch('/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          login,
-          password,
-        }),
-      });
-      if (response.status === 401) console.log('Невалидные данные');
-      else {
-        const { html } = await response.json();
-        container.innerHTML = html;
-        // window.history.pushState(null, null, '/auth/login');
-      }
-    } catch (error) {
-      console.log('error: ', error);
-    }
-  }
-  // перейти к форме логина
-  if (event.target.id === 'go-login') {
-    try {
-      const response = await fetch('/auth/login');
+      const response = await fetch(`/users/${userId}/collections`);
       const { html } = await response.json();
       container.innerHTML = html;
-      window.history.pushState(null, null, '/auth/login');
     } catch (error) {
       console.log('error: ', error.message);
     }
   }
-  // залогиниться
-  if (event.target.id === 'getLogin') {
-    const login = document.querySelector('#inputLoginLogin').value;
-    const password = document.querySelector('#inputPasswordLogin').value;
-    try {
-      const response = await fetch('/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          login,
-          password,
-        }),
-      });
-      const { html } = await response.json();
-      container.innerHTML = html;
-    } catch (error) {
-      console.log('error: ', error);
-    }
-  }
+  // if (event.target.id === 'getLogoutNavbar') {
+  //   try {
+  //     const response = await fetch('/home/navbar');
+  //     const { html } = await response.json();
+  //     container.innerHTML = html;
+  //   } catch (error) {
+  //     console.log('error: ', error.message);
+  //   }
+  // }
 });
