@@ -5,6 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class CardInCollection extends Model {
     static associate(models) {
+      this.hasMany
     }
   }
   CardInCollection.init({

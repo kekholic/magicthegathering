@@ -40,7 +40,7 @@ container.addEventListener('click', async (event) => {
         const { html, id } = await response.json();
         container.innerHTML = html;
         logoutBtn.hidden = false;
-        userId = id
+        userId = id;
         // window.history.pushState(null, null, '/auth/login');
       }
     } catch (error) {
@@ -76,7 +76,7 @@ container.addEventListener('click', async (event) => {
       const { html, id } = await response.json();
       container.innerHTML = html;
       logoutBtn.hidden = false;
-      userId = id
+      userId = id;
     } catch (error) {
       console.log('error: ', error);
     }
@@ -164,8 +164,7 @@ container.addEventListener('click', async (event) => {
     const collectionPrice = event.target.previousElementSibling.dataset.price;
     // достаем ссылку на картинку, которую будем добавлять в дб
     const img = event.target.previousElementSibling.src;
-    console.log(img);
-    await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new`, {
+    const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -177,6 +176,50 @@ container.addEventListener('click', async (event) => {
         image: img,
       }),
     });
+    // easy way
+    if (response.status === 200) event.target.remove();
+  }
+
+  // изменение колоды
+  if (event.target.dataset.editColl === 'edit-coll') {
+    // eslint-disable-next-line max-len
+    const collectionId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
+    const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`);
+    const html = await response.json();
+    container.innerHTML = html.html;
+    window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}`);
+  }
+  // удаление коллекции из дб и страницы
+  if (event.target.dataset.deleteColl === 'delete-coll') {
+    // eslint-disable-next-line max-len
+    const collectionId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
+    const cardBody = event.target.parentElement.parentElement.parentElement;
+    const response = await fetch(`http://localhost:3000/users/${userId}/collections/fetch`, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        id: collectionId,
+      }),
+    });
+    if (response.status === 200) {
+      cardBody.remove();
+    }
+  }
+  // incriment of cards
+  // if (event.target.class)
+
+  // перейти к форме регистрации
+  if (event.target.id === 'go-register') {
+    try {
+      const response = await fetch('/auth/register');
+      const { html } = await response.json();
+      container.innerHTML = html;
+      window.history.pushState(null, null, '/auth/register');
+    } catch (error) {
+      console.log('error: ', error.message);
+    }
   }
 });
 
@@ -193,6 +236,48 @@ containerFluid.addEventListener('click', async (event) => {
       console.log('error: ', error.message);
     }
   }
+
+  // зарегистрироваться
+  if (event.target.id === 'getRegister') {
+    const name = document.querySelector('#inputNameRegister').value;
+    const login = document.querySelector('#inputLoginRegister').value;
+    const password = document.querySelector('#inputPasswordRegister').value;
+    try {
+      const response = await fetch('/auth/register', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          login,
+          password,
+        }),
+      });
+      if (response.status === 401) console.log('Невалидные данные');
+      else {
+        const { html } = await response.json();
+        container.innerHTML = html;
+
+        // fast route to receive userId
+        // container.dataset.userId =
+        // window.history.pushState(null, null, '/auth/login');
+      }
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  }
+  // перейти к форме логина
+  if (event.target.id === 'go-login') {
+    try {
+      const response = await fetch('/auth/login');
+      const { html } = await response.json();
+      container.innerHTML = html;
+      window.history.pushState(null, null, '/auth/login');
+    } catch (error) {
+      console.log('error: ', error.message);
+    }
+  }
   if (event.target.id === 'getLogoutCollect') {
     try {
       const response = await fetch(`/users/${userId}/collections`);
@@ -202,13 +287,26 @@ containerFluid.addEventListener('click', async (event) => {
       console.log('error: ', error.message);
     }
   }
-  // if (event.target.id === 'getLogoutNavbar') {
-  //   try {
-  //     const response = await fetch('/home/navbar');
-  //     const { html } = await response.json();
-  //     container.innerHTML = html;
-  //   } catch (error) {
-  //     console.log('error: ', error.message);
-  //   }
-  // }
+
+  // залогиниться
+  if (event.target.id === 'getLogin') {
+    const login = document.querySelector('#inputLoginLogin').value;
+    const password = document.querySelector('#inputPasswordLogin').value;
+    try {
+      const response = await fetch('/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          login,
+          password,
+        }),
+      });
+      const { html } = await response.json();
+      container.innerHTML = html;
+    } catch (error) {
+      console.log('error: ', error);
+    }
+  }
 });

@@ -4,9 +4,9 @@ const {
 
 module.exports = (sequelize, DataTypes) => {
   class Collection extends Model {
-    static associate({ User, Card }) {
-      this.belongsTo(User, { foreignKey: 'userId' });
-      this.belongsToMany(Card, { through: 'CardInCollection', foreignKey: 'collectionId' });
+    static associate(models) {
+      this.belongsTo(models.User, { foreignKey: 'userId' });
+      this.belongsToMany(models.Card, { through: models.CardInCollection, foreignKey: 'collectionId', otherKey: 'cardId' });
     }
   }
   Collection.init({
@@ -14,12 +14,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    count: {
+    ownedCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    allCount: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       defaultValue: 0,
     },
     userId: {

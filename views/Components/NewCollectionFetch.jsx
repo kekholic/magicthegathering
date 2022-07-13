@@ -1,6 +1,6 @@
 const React = require('react');
 
-module.exports = function NewCollectionFETCH() {
+module.exports = function NewCollectionFetch() {
   return (
     <>
       <img src="/images/mtgLogo.png" alt="mtgLogo" />

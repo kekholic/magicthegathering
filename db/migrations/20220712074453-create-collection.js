@@ -11,12 +11,16 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      count: {
+      ownedCount: {
+        type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      allCount: {
         type: Sequelize.INTEGER,
         defaultValue: 0,
       },
       price: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         defaultValue: 0,
       },
       userId: {
@@ -26,6 +30,7 @@ module.exports = {
           model: 'Users',
           key: 'id',
         },
+        onDelete: 'cascade',
       },
       createdAt: {
         allowNull: false,

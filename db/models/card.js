@@ -4,8 +4,8 @@ const {
 
 module.exports = (sequelize, DataTypes) => {
   class Card extends Model {
-    static associate({ Collection }) {
-      this.belongsToMany(Collection, { through: 'CardInCollection', foreignKey: 'cardId' });
+    static associate(models) {
+      this.belongsToMany(models.Collection, { through: models.CardInCollection, foreignKey: 'cardId', otherKey: 'collectionId' });
     }
   }
   Card.init({
