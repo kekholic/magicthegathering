@@ -31,7 +31,7 @@ exports.registration = async (req, res) => {
       lastSignin: new Date(),
     });
 
-    const token = createTokens(user.id, user.name);
+    // const token = createTokens(user.id, user.name);
 
     req.session.user = { id: user.id, login: user.login };
     renderFront(CollectionList, { login }, res);
