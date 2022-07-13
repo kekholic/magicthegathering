@@ -85,6 +85,9 @@ container.addEventListener('click', async (event) => {
   if (event.target.dataset.idButton === 'create-button') {
     const titleNewCollection = document.querySelector("[data-id-input = 'create-input']").value;
     // отправляем фетч с созданием новой коллекции
+    const currentlyUrl = window.document.location.pathname;
+    const regExp = /\d+/igm;
+    const userId = currentlyUrl.match(regExp)[0];
     const response = await fetch(`http://localhost:3000/users/${userId}/collections/new`, {
       method: 'POST',
       headers: {
