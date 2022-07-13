@@ -1,5 +1,6 @@
 const NewCollection = require('../views/users/NewCollection');
-const Collections = require('../views/users/Collections');
+const HomeCollect = require('../views/Navbar/HomeCollect');
+// const Collections = require('../views/users/Collections');
 const NewCollectionFetch = require('../views/users/NewCollectionFETCH');
 
 const { Collection, Card, CardInCollection } = require('../db/models');
@@ -12,7 +13,8 @@ const showCollectionPage = (req, res) => {
 };
 // отрисовываем страницу со всеми коллекциями (toDo: доделать)
 const showAllCollections = (req, res) => {
-  render(Collections, {}, res);
+  const name = req.session?.user;
+  renderFetch(HomeCollect, { login: name }, res);
 };
 // создаем новую коллекцию и записываем в дб
 const createNewCollection = async (req, res) => {

@@ -31,19 +31,9 @@ function Layout({ title, children, login }) {
                   <li className="nav-item">
                     <a className="nav-link active" id="getLogoutCollect" aria-current="page" href="/users/:id/collections">Коллекции</a>
                   </li>
-                  {login ? (
-                    <>
-                      <li className="nav-item">
-                        <a className="nav-link active" id="getLogout" href="#">Выйти</a>
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li className="nav-item" hidden={false}>
-                        {/* <a className="nav-link active" id="getLogout" href="#">Выйти</a> */}
-                      </li>
-                    </>
-                  )}
+                  <li className="nav-item">
+                    <a className="nav-link active" id="getLogout" hidden href="#">Выйти</a>
+                  </li>
                 </ul>
                 <form className="d-flex" role="search">
                   <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />

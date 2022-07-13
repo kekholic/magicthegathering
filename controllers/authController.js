@@ -1,18 +1,16 @@
 const bcrypt = require('bcrypt');
 
 const renderFront = require('../lib/renderFront');
-const { createTokens } = require('../lib/createToken');
+const renderFrontWithId = require('../lib/renderFroinWithId');
 const { failAuth } = require('../middlewares/func');
 
 const Register = require('../views/Register');
 const Login = require('../views/Login');
 const HomeNavbar = require('../views/Navbar/HomeNavbar');
-const CollectionList = require('../views/CollectionList');
 const HomeCollect = require('../views/Navbar/HomeCollect');
 
-const { User, Token } = require('../db/models');
+const { User } = require('../db/models');
 const renderFetch = require('../lib/renderFetch');
-
 
 exports.getRegistrationForm = (req, res) => {
   renderFront(Register, null, res);
@@ -35,10 +33,8 @@ exports.registration = async (req, res) => {
       lastSignin: new Date(),
     });
 
-    // const token = createTokens(user.id, user.name);
-
     req.session.user = { id: user.id, login: user.login };
-    renderFront(CollectionList, { login }, res);
+    renderFrontWithId(HomeCollect, { id: user.id }, res);
   } catch (error) {
     console.log('error: ', error.message);
     failAuth(res, { message: 'Ошибка регистрации. Повторите попытку.' });
@@ -58,7 +54,7 @@ exports.login = async (req, res) => {
     user.save();
 
     req.session.user = { id: user.id, login: user.login };
-    renderFront(HomeCollect, { login }, res);
+    renderFrontWithId(HomeCollect, { login, id: user.id }, res);
   } catch (error) {
     console.log('error: ', error.message);
     failAuth(res, { message: 'Неудалось войти. Повторите попытку.' });
