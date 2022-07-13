@@ -5,7 +5,7 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Token extends Model {
     static associate({ User }) {
-      this.belongsTo(User, { onDelete: 'CASCADE' });
+      this.belongsTo(User, { foreignKey: 'userId' });
     }
   }
   Token.init({

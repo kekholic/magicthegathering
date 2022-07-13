@@ -8,6 +8,7 @@ const express = require('express');
 const app = express();
 
 const session = require('express-session');
+const cookieParser = require('cookie-parser');
 
 // импорт вспомогательных ф-й
 const dbCheck = require('./db/dbCheck');
@@ -28,6 +29,7 @@ app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(session(sessionConfig));
+app.use(cookieParser());
 
 // роутеры
 app.use('/', indexRoutes);

@@ -107,7 +107,7 @@ container.addEventListener('click', async (event) => {
       const response = await fetch('/auth/register');
       const { html } = await response.json();
       container.innerHTML = html;
-      window.history.pushState(null, null, '/auth/register');
+      // window.history.pushState(null, null, '/auth/register');
     } catch (error) {
       console.log('error: ', error.message);
     }
@@ -131,7 +131,9 @@ container.addEventListener('click', async (event) => {
       });
       if (response.status === 401) console.log('Невалидные данные');
       else {
-        const { html } = await response.json();
+        const {
+          html, id, refreshToken, accessToken,
+        } = await response.json();
         container.innerHTML = html;
         // window.history.pushState(null, null, '/auth/login');
       }
@@ -145,7 +147,7 @@ container.addEventListener('click', async (event) => {
       const response = await fetch('/auth/login');
       const { html } = await response.json();
       container.innerHTML = html;
-      window.history.pushState(null, null, '/auth/login');
+      // window.history.pushState(null, null, '/auth/login');
     } catch (error) {
       console.log('error: ', error.message);
     }
@@ -165,8 +167,17 @@ container.addEventListener('click', async (event) => {
           password,
         }),
       });
-      const { html } = await response.json();
-      container.innerHTML = html;
+      if (response.status === 401) console.log('Невалидные данные');
+      else {
+        const {
+          html, id, refreshToken, accessToken,
+        } = await response.json();
+        container.innerHTML = html;
+        // window.history.pushState(null, null, '/auth/login');
+        console.log('accessToken: ', accessToken);
+        console.log('refreshToken: ', refreshToken);
+        console.log('id: ', id);
+      }
     } catch (error) {
       console.log('error: ', error);
     }

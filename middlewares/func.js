@@ -10,7 +10,7 @@ exports.isValid = (req, res, next) => {
   res.sendStatus(401);
 };
 
-exports.failAuth = (res, err) => res.status(401).json({ err });
+exports.failAuth = (res, err) => res.status(401).json(err);
 
 exports.isAuth = (req, res, next) => {
   if (req.session?.user) return next();
