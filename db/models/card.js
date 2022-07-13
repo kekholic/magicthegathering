@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
+    accessible: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
     image: {
       type: DataTypes.STRING,
       allowNull: false,
