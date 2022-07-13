@@ -103,6 +103,13 @@ container.addEventListener('click', async (event) => {
     // easy way
     if (response.status === 200) event.target.remove();
   }
+  // изменение колоды
+  if (event.target.dataset.editColl === 'edit-coll') {
+    // eslint-disable-next-line max-len
+    const collectionId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
+    // const response = await fetch('');
+  }
+
   // перейти к форме регистрации
   if (event.target.id === 'go-register') {
     try {

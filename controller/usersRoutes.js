@@ -1,6 +1,7 @@
 const NewCollection = require('../views/users/NewCollection');
 const Collections = require('../views/users/Collections');
 const NewCollectionFetch = require('../views/Components/NewCollectionFETCH');
+const CardsInCollection = require('../views/users/CardsInCollection');
 
 const { Collection, Card, CardInCollection } = require('../db/models');
 
@@ -14,8 +15,17 @@ const showCollectionPage = (req, res) => {
 const showAllCollections = async (req, res) => {
   const userId = req.session.user.id;
   const collections = await Collection.findAll({ where: { userId } });
-  console.log(collections);
   render(Collections, { collections }, res);
+};
+// отрисовываем стринацу конкретной коллекции
+const showCardsInOneCollection = async (req, res) => {
+  const collectionId = req.params.coll;
+  const allCards = await CardInCollection.findAll({
+    include: { model: Card },
+    raw: true,
+  });
+  console.log(allCards);
+  res.send(allCards);
 };
 // создаем новую коллекцию и записываем в дб
 const createNewCollection = async (req, res) => {
@@ -43,9 +53,8 @@ const createNewCardAndCiC = async (req, res) => {
   // записываем промежуточную таблицу
   await CardInCollection.create({ collectionId, cardId });
   const curretnCol = await Collection.findOne({ where: { id: collectionId } });
-  curretnCol.count += 1;
-
-  curretnCol.price = String(Number(curretnCol.price) + Number(price));
+  curretnCol.allCount += 1;
+  curretnCol.price = String((Number(curretnCol.price) + Number(price)).toFixed(2));
   await curretnCol.save();
   res.status(200).json();
 };
@@ -56,4 +65,5 @@ module.exports = {
   createNewCollection,
   showCollectionPageFetch,
   createNewCardAndCiC,
+  showCardsInOneCollection,
 };

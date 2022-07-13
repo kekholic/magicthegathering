@@ -8,24 +8,24 @@ function collectionItem({ collection }) {
           <h5 className="card-title">
             {collection.title}
           </h5>
-          <p className="card-text">
-            Price:{collection.price}
-            {' '}
-            {collection.createdAt.toLocaleDateString('ru-RU')}
-          </p>
+          <p className="card-text">Price: {collection.price}$</p>
+          <p>Cards in collection : {collection.ownedCount}/{collection.allCount}</p>
+          <p>Created at {collection.createdAt.toLocaleDateString('ru-RU')}</p>
           <p className="mb-0">
             <button
               type="button"
+              data-delete-coll="delete-coll"
               className="js-delete btn btn-outline-danger btn-sm me-2"
             >
               Delete collection
             </button>
-            <a
-              href={`/ponies/${collection.id}`}
-              className="btn btn-outline-primary btn-sm disabled"
+            <button
+              type="button"
+              data-edit-coll="edit-coll"
+              className="btn btn-outline-primary btn-sm"
             >
-              Watch collection
-            </a>
+              Edit collection
+            </button>
           </p>
         </div>
       </div>

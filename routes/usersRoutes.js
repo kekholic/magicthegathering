@@ -8,6 +8,7 @@ const {
   createNewCollection,
   showCollectionPageFetch,
   createNewCardAndCiC,
+  showCardsInOneCollection,
 } = require('../controller/usersRoutes');
 // отрисовка страницы создания коллекции
 usersRoutes.get('/:id/collections/:coll/new', showCollectionPage);
@@ -19,5 +20,7 @@ usersRoutes.get('/:id/collections/:coll/new/fetch', showCollectionPageFetch);
 usersRoutes.post('/:id/collections/new', createNewCollection);
 // отрисовка страницы со всеми коллекциями
 usersRoutes.get('/:id/collections', showAllCollections);
+
+usersRoutes.get('/:id/collections/:coll', showCardsInOneCollection);
 
 module.exports = usersRoutes;

@@ -14,7 +14,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    count: {
+    ownedCount: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0,
+    },
+    allCount: {
       type: DataTypes.INTEGER,
       defaultValue: 0,
     },
