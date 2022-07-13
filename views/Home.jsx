@@ -1,9 +1,9 @@
 const React = require('react');
 const Layout = require('./Layout');
 
-module.exports = function Home() {
+module.exports = function Home({ login }) {
   return (
-    <Layout>
+    <Layout login={login} >
       <div className="card text-center">
         <div className="card-header">
           Featured

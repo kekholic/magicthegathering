@@ -6,9 +6,13 @@ const { failAuth } = require('../middlewares/func');
 
 const Register = require('../views/Register');
 const Login = require('../views/Login');
+const HomeNavbar = require('../views/Navbar/HomeNavbar');
 const CollectionList = require('../views/CollectionList');
+const HomeCollect = require('../views/Navbar/HomeCollect');
 
 const { User, Token } = require('../db/models');
+const renderFetch = require('../lib/renderFetch');
+
 
 exports.getRegistrationForm = (req, res) => {
   renderFront(Register, null, res);
@@ -54,7 +58,7 @@ exports.login = async (req, res) => {
     user.save();
 
     req.session.user = { id: user.id, login: user.login };
-    renderFront(CollectionList, { login }, res);
+    renderFront(HomeCollect, { login }, res);
   } catch (error) {
     console.log('error: ', error.message);
     failAuth(res, { message: 'Неудалось войти. Повторите попытку.' });
@@ -68,6 +72,6 @@ exports.logout = (req, res) => {
       failAuth(res, 'Произошла ошибка. Повторите попытку');
     }
     res.clearCookie('sid');
-    res.redirect('/');
+    renderFetch(HomeNavbar, null, res);
   });
 };

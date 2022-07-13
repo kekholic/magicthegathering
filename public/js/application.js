@@ -172,3 +172,36 @@ container.addEventListener('click', async (event) => {
     }
   }
 });
+
+const container_fluid = document.querySelector('.container-fluid');
+// Добавление выйти из сессии
+container_fluid.addEventListener('click', async (event) => {
+  event.preventDefault();
+  if (event.target.id === 'getLogout') {
+    try {
+      const response = await fetch('/auth/logout');
+      const { html } = await response.json();
+      container.innerHTML = html;
+    } catch (error) {
+      console.log('error: ', error.message);
+    }
+  }
+  if (event.target.id === 'getLogoutNavbar') {
+    try {
+      const response = await fetch('/home/navbar');
+      const { html } = await response.json();
+      container.innerHTML = html;
+    } catch (error) {
+      console.log('error: ', error.message);
+    }
+  }
+  if (event.target.id === 'getLogoutCollect') {
+    try {
+      const response = await fetch('/home/collect');
+      const { html } = await response.json();
+      container.innerHTML = html;
+    } catch (error) {
+      console.log('error: ', error.message);
+    }
+  }
+})
