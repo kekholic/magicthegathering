@@ -1,6 +1,6 @@
 const NewCollection = require('../views/users/NewCollection');
 const Collections = require('../views/users/Collections');
-const NewCollectionFetch = require('../views/users/NewCollectionFETCH');
+const NewCollectionFetch = require('../views/Components/NewCollectionFETCH');
 
 const { Collection, Card, CardInCollection } = require('../db/models');
 
@@ -11,8 +11,11 @@ const showCollectionPage = (req, res) => {
   render(NewCollection, {}, res);
 };
 // отрисовываем страницу со всеми коллекциями (toDo: доделать)
-const showAllCollections = (req, res) => {
-  render(Collections, {}, res);
+const showAllCollections = async (req, res) => {
+  const userId = req.session.user.id;
+  const collections = await Collection.findAll({ where: { userId } });
+  console.log(collections);
+  render(Collections, { collections }, res);
 };
 // создаем новую коллекцию и записываем в дб
 const createNewCollection = async (req, res) => {
@@ -32,12 +35,19 @@ const createNewCardAndCiC = async (req, res) => {
     price,
     image,
   } = req.body;
-  // записываем карточку в дб
-  const card = await Card.create({ title, price, image });
-  const cardId = card.id;
-  // console.log(cardId);
+  // записываем карточку в дб или ищем существующую
+  const card = await Card.findOrCreate({ where: { title, price, image }, raw: true });
+
+  const cardId = card[0].id;
+
   // записываем промежуточную таблицу
   await CardInCollection.create({ collectionId, cardId });
+  const curretnCol = await Collection.findOne({ where: { id: collectionId } });
+  curretnCol.count += 1;
+
+  curretnCol.price = String(Number(curretnCol.price) + Number(price));
+  await curretnCol.save();
+  res.status(200).json();
 };
 
 module.exports = {

@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
     price: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
       defaultValue: 0,
     },
     userId: {

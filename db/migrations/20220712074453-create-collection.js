@@ -16,7 +16,7 @@ module.exports = {
         defaultValue: 0,
       },
       price: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         defaultValue: 0,
       },
       userId: {

@@ -87,8 +87,8 @@ container.addEventListener('click', async (event) => {
     const collectionPrice = event.target.previousElementSibling.dataset.price;
     // достаем ссылку на картинку, которую будем добавлять в дб
     const img = event.target.previousElementSibling.src;
-    console.log(img);
-    await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new`, {
+    console.log('before fetch');
+    const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -100,6 +100,8 @@ container.addEventListener('click', async (event) => {
         image: img,
       }),
     });
+    // easy way
+    if (response.status === 200) event.target.remove();
   }
   // перейти к форме регистрации
   if (event.target.id === 'go-register') {
@@ -133,6 +135,9 @@ container.addEventListener('click', async (event) => {
       else {
         const { html } = await response.json();
         container.innerHTML = html;
+
+        // fast route to receive userId
+        // container.dataset.userId =
         // window.history.pushState(null, null, '/auth/login');
       }
     } catch (error) {
