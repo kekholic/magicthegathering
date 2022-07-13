@@ -2,22 +2,33 @@ const bcrypt = require('bcrypt');
 
 const renderFront = require('../lib/renderFront');
 const renderFrontWithId = require('../lib/renderFroinWithId');
+const render = require('../lib/render');
 const { failAuth } = require('../middlewares/func');
 
-const Register = require('../views/Register');
-const Login = require('../views/Login');
+const RegisterFetch = require('../views/register/RegisterFetch');
+const Register = require('../views/register/Register');
+const LoginFetch = require('../views/register/LoginFetch');
+const Login = require('../views/register/Login');
 const HomeNavbar = require('../views/Navbar/HomeNavbar');
 const HomeCollect = require('../views/Navbar/HomeCollect');
 
 const { User } = require('../db/models');
 const renderFetch = require('../lib/renderFetch');
 
+exports.getRegistrationFormFetch = (req, res) => {
+  renderFront(RegisterFetch, null, res);
+};
+
 exports.getRegistrationForm = (req, res) => {
-  renderFront(Register, null, res);
+  render(Register, null, res);
+};
+
+exports.getLoginFormFetch = (req, res) => {
+  renderFront(LoginFetch, null, res);
 };
 
 exports.getLoginForm = (req, res) => {
-  renderFront(Login, null, res);
+  render(Login, null, res);
 };
 
 exports.registration = async (req, res) => {
