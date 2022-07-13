@@ -94,6 +94,7 @@ const createNewCardAndCiC = async (req, res) => {
     image,
   } = req.body;
   // записываем карточку в дб или ищем существующую
+  // FIX BUGX IVAN
   const card = await Card.findOrCreate({ where: { title, price, image }, raw: true });
   const cardId = card[0].id;
   const doWeHave = await CardInCollection.findOne({ where: { collectionId, cardId } });
