@@ -1,9 +1,13 @@
 const NewCollection = require('../views/users/NewCollection');
+
 const Collections = require('../views/users/Collections');
 const CardsInCollection = require('../views/users/CardsInCollection');
 
 const NewCollectionFetch = require('../views/Components/NewCollectionFetch');
 const CardsInCollectionFetch = require('../views/Components/CardsInCollectionFetch');
+
+const HomeCollect = require('../views/Navbar/HomeCollect');
+// const Collections = require('../views/users/Collections');
 
 const { Collection, Card, CardInCollection } = require('../db/models');
 
@@ -16,9 +20,19 @@ const renderFetch = require('../lib/renderFetch');
 const showCollectionPage = (req, res) => {
   render(NewCollection, {}, res);
 };
+
 // отрисовываем страницу добавления карт в коллекцию с помощью фетча
 const showCollectionPageFetch = (req, res) => {
   renderFetch(NewCollectionFetch, {}, res);
+};
+
+// отрисовываем страницу со всеми коллекциями (toDo: доделать)
+// ДЛЯ КНОПКИ В КОЛЛЕКЦИИ В ЛЕВОМ ВЕРХНЕМ УГЛУ
+const showAllCollectionsFetch = async (req, res) => {
+  const name = req.session?.user;
+  const userId = req.session.user.id;
+  const collections = await Collection.findAll({ where: { userId } });
+  renderFetch(HomeCollect, { login: name }, res);
 };
 
 /* -------------------------------------- */

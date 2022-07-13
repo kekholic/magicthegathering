@@ -2,6 +2,8 @@ const express = require('express');
 
 const usersRoutes = express.Router();
 
+const { isAuth } = require('../middlewares/func');
+
 const {
   showCollectionPage,
   showAllCollections,
@@ -17,6 +19,7 @@ usersRoutes.get('/:id/collections/:coll/new', showCollectionPage);
 // отрисовка страницы создания коллекции с помощью фетча
 usersRoutes.get('/:id/collections/:coll/new/fetch', showCollectionPageFetch);
 // отрисовка страницы со всеми коллекциями
+
 usersRoutes.get('/:id/collections', showAllCollections);
 // удаляем коллекцию из дб
 usersRoutes.delete('/:id/collections/fetch', deleteCollection);
@@ -28,5 +31,8 @@ usersRoutes.get('/:id/collections/:coll/fetch', showCardsInOneCollectionFetch);
 usersRoutes.post('/:id/collections/:coll/new', createNewCardAndCiC);
 // создание новой таблицы и внесение её в дб
 usersRoutes.post('/:id/collections/new', createNewCollection);
+
+usersRoutes.get('/:id/collections', isAuth, showAllCollections);
+
 
 module.exports = usersRoutes;
