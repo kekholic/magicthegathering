@@ -23,6 +23,14 @@
   }
 }
 
-.card-img{
+.card-img {
   width: 200px;
+}
+
+.gray {
+  filter: grayscale(1)
+}
+
+.notGray {
+  filter: grayscale(0)
 }

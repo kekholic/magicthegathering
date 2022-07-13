@@ -129,6 +129,9 @@ container.addEventListener('click', async (event) => {
       cardBody.remove();
     }
   }
+  // incriment of cards
+  // if (event.target.class)
+
   // перейти к форме регистрации
   if (event.target.id === 'go-register') {
     try {
