@@ -199,6 +199,27 @@ container.addEventListener('click', async (event) => {
     container.innerHTML = html.html;
     window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}`);
   }
+
+  // кнопка перехода на добавления карт в колоду ИЗ созданной колоды
+  if (event.target.dataset.name === 'add-cards') {
+    const userId = getIdFromUrl(0);
+    const collectionId = getIdFromUrl(1);
+    const repsonse1 = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new/fetch`);
+    const { html } = await repsonse1.json();
+    container.innerHTML = html;
+    window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}/new`);
+  }
+
+  // кнопка возврата из окна добавления карт в коллекцию на страницу коллекции
+  if (event.target.dataset.idButton === 'save-collection') {
+    const userId = getIdFromUrl(0);
+    const collectionId = getIdFromUrl(1);
+    const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`);
+    const html = await response.json();
+    container.innerHTML = html.html;
+    window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}`);
+  }
+
   // удаление коллекции из дб и страницы
   if (event.target.dataset.deleteColl === 'delete-coll') {
     const userId = getIdFromUrl(0);
@@ -225,8 +246,8 @@ container.addEventListener('click', async (event) => {
     const collectionId = getIdFromUrl(1);
     const { cardId } = event.target.previousElementSibling.dataset;
     const img = event.target.previousElementSibling;
-    const paragraph = event.target.previousElementSibling.previousElementSibling;
-    console.log(img);
+    const span = event.target.previousElementSibling.previousElementSibling.previousElementSibling;
+    console.log(span);
     const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`, {
       method: 'PATCH',
       headers: {
@@ -239,7 +260,7 @@ container.addEventListener('click', async (event) => {
     });
     if (response.status === 200) {
       img.className = 'notGray';
-      paragraph.innerHTML = String(Number(paragraph.innerHTML) + Number(1));
+      span.innerHTML = String(Number(span.innerHTML) + Number(1));
     }
   }
 
@@ -271,8 +292,7 @@ containerFluid.addEventListener('click', async (event) => {
     }
   }
 
-  // fast route to receive userId
-  // container.dataset.userId =
+
 
   if (event.target.id === 'getLogoutCollect') {
     try {

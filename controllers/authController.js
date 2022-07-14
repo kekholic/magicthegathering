@@ -12,8 +12,9 @@ const Login = require('../views/register/Login');
 const HomeNavbar = require('../views/Navbar/HomeNavbar');
 const HomeCollect = require('../views/Navbar/HomeCollect');
 
-const { User } = require('../db/models');
+const { User, Collection } = require('../db/models');
 const renderFetch = require('../lib/renderFetch');
+const Collections = require('../views/users/Collections');
 
 exports.getRegistrationFormFetch = (req, res) => {
   renderFront(RegisterFetch, null, res);
@@ -65,7 +66,11 @@ exports.login = async (req, res) => {
     user.save();
 
     req.session.user = { id: user.id, login: user.login };
-    renderFrontWithId(HomeCollect, { login, id: user.id }, res);
+
+    const collections = await Collection.findAll({ where: { userId: req.session.user.id } });
+    console.log(collections);
+
+    renderFrontWithId(HomeCollect, { login, id: user.id, collections }, res);
   } catch (error) {
     console.log('error: ', error.message);
     failAuth(res, { message: 'Неудалось войти. Повторите попытку.' });
