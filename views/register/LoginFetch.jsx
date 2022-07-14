@@ -11,7 +11,7 @@ module.exports = function getLoginForm() {
         <label htmlFor="inputPasswordLogin" className="form-label">Введите пароль:</label>
         <input type="password" className="form-control" id="inputPasswordLogin" />
       </div>
-      <button type="submit" id="getLogin" className="btn btn-primary">Отправить</button>
+      <button type="submit" id="getLogin" className="btn btn-secondary btn-lg btn-login">Отправить</button>
     </form>
   );
 };

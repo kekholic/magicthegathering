@@ -4,6 +4,7 @@ function collectionItem({ collection }) {
   return (
     <div data-id={collection.id} className="js-collection col-12 col-md-6 col-lg-4 mb-4">
       <div className="card">
+        
         <div className="card-body">
           <h5 className="card-title">
             {collection.title}

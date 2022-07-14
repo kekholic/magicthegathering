@@ -18,6 +18,7 @@ container.addEventListener('click', async (event) => {
       const response = await fetch('/auth/register/fetch');
       const { html } = await response.json();
       container.innerHTML = html;
+      logoutBtn.hidden = false;
       window.history.pushState(null, null, '/auth/register');
     } catch (error) {
       console.log('error: ', error.message);
@@ -47,6 +48,7 @@ container.addEventListener('click', async (event) => {
         logoutBtn.hidden = false;
 
         const userId = await getUserId();
+        logoutBtn.hidden = false;
         window.history.pushState(null, null, `/users/${userId}/collections`);
       }
     } catch (error) {
@@ -59,6 +61,7 @@ container.addEventListener('click', async (event) => {
       const response = await fetch('/auth/login/fetch');
       const { html } = await response.json();
       container.innerHTML = html;
+      logoutBtn.hidden = false;
       window.history.pushState(null, null, '/auth/login');
     } catch (error) {
       console.log('error: ', error.message);
