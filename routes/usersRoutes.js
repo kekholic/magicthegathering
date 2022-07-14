@@ -34,5 +34,4 @@ usersRoutes.post('/:id/collections/new', createNewCollection);
 
 usersRoutes.get('/:id/collections', isAuth, showAllCollections);
 
-
 module.exports = usersRoutes;

@@ -2,7 +2,7 @@ const React = require('react');
 
 module.exports = function getLoginForm() {
   return (
-    <form method="POST">
+    <form>
       <div className="mb-3">
         <label htmlFor="inputLoginLogin" className="form-label">Введите логин:</label>
         <input type="login" className="form-control" id="inputLoginLogin" />
