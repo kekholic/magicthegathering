@@ -42,7 +42,7 @@ container.addEventListener('click', async (event) => {
       });
       if (response.status === 401) console.log('Невалидные данные');
       else {
-        const { html, id } = await response.json();
+        const { html } = await response.json();
         container.innerHTML = html;
         logoutBtn.hidden = false;
 
@@ -79,7 +79,7 @@ container.addEventListener('click', async (event) => {
           password,
         }),
       });
-      const { html, id } = await response.json();
+      const { html } = await response.json();
       container.innerHTML = html;
       logoutBtn.hidden = false;
 
@@ -109,6 +109,7 @@ container.addEventListener('click', async (event) => {
     const repsonse1 = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new/fetch`);
     const { html } = await repsonse1.json();
     container.innerHTML = html;
+    logoutBtn.hidden = false;
     window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}/new`);
   }
 
@@ -197,6 +198,7 @@ container.addEventListener('click', async (event) => {
     const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`);
     const html = await response.json();
     container.innerHTML = html.html;
+    logoutBtn.hidden = false;
     window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}`);
   }
 
@@ -263,18 +265,6 @@ container.addEventListener('click', async (event) => {
       span.innerHTML = String(Number(span.innerHTML) + Number(1));
     }
   }
-
-  // перейти к форме регистрации
-  if (event.target.id === 'go-register') {
-    try {
-      const response = await fetch('/auth/register');
-      const { html } = await response.json();
-      container.innerHTML = html;
-      window.history.pushState(null, null, '/auth/register');
-    } catch (error) {
-      console.log('error: ', error.message);
-    }
-  }
 });
 
 // Слушатель навбара
@@ -293,15 +283,14 @@ containerFluid.addEventListener('click', async (event) => {
   }
 
 
-
   if (event.target.id === 'getLogoutCollect') {
     try {
       const id = await getUserId();
-      console.log('id: ', id);
-      const response = await fetch(`/users/${id}/collections`);
-
+      const response = await fetch(`/users/${id}/collections/a`);
       const { html } = await response.json();
       container.innerHTML = html;
+      logoutBtn.hidden = false;
+      window.history.pushState(null, null, `/users/${id}/collections`);
     } catch (error) {
       console.log('error: ', error.message);
     }
@@ -312,7 +301,6 @@ async function getUserId() {
   try {
     const response = await fetch('/id');
     const { id } = await response.json();
-    // console.log('id: ', id);
     return id;
   } catch (error) {
     console.log('error: ', error.message);

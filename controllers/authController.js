@@ -45,8 +45,12 @@ exports.registration = async (req, res) => {
       lastSignin: new Date(),
     });
 
+    const userId = user.id;
+
+    const collections = await Collection.findAll({ where: { userId } });
+
     req.session.user = { id: user.id, login: user.login };
-    renderFrontWithId(HomeCollect, { id: user.id }, res);
+    renderFrontWithId(HomeCollect, { id: user.id, collections }, res);
   } catch (error) {
     console.log('error: ', error.message);
     failAuth(res, { message: 'Ошибка регистрации. Повторите попытку.' });
@@ -65,10 +69,11 @@ exports.login = async (req, res) => {
     user.lastSignin = new Date();
     user.save();
 
-    req.session.user = { id: user.id, login: user.login };
+    const userId = user.id;
 
-    const collections = await Collection.findAll({ where: { userId: req.session.user.id } });
-    console.log(collections);
+    const collections = await Collection.findAll({ where: { userId } });
+
+    req.session.user = { id: user.id, login: user.login };
 
     renderFrontWithId(HomeCollect, { login, id: user.id, collections }, res);
   } catch (error) {
