@@ -11,7 +11,7 @@ module.exports = function CardsInCollectionFetch({ allCards }) {
       <CardInCollectionItem card={card} key={card.id} />
     ))}
       </div>
-      <button data-name="add-cards" type="button" className="btn btn-secondary btnAdd">Добавить новые карты</button>
+      <button data-name="add-cards" type="button" className="btn btn-secondary btn-lg btnAdd">Добавить новые карты</button>
     </>
   );
 };

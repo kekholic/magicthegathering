@@ -31,7 +31,7 @@ const showCollectionPageFetch = (req, res) => {
 const showAllCollectionsFetch = async (req, res) => {
   const name = req.session?.user;
   const userId = req.session.user.id;
-  const collections = await Collection.findAll({ where: { userId } });
+  const collections = await Collection.findAll({ where: { userId }, order: [['id']] });
   renderFetch(HomeCollect, { login: name }, res);
 };
 
@@ -40,7 +40,7 @@ const showAllCollectionsFetch = async (req, res) => {
 // отрисовываем страницу со всеми коллекциями (toDo: доделать)
 const showAllCollections = async (req, res) => {
   const userId = req.session.user.id;
-  const collections = await Collection.findAll({ where: { userId } });
+  const collections = await Collection.findAll({ where: { userId }, order: [['id']] });
   render(Collections, { collections }, res);
 };
 
@@ -57,6 +57,7 @@ const deleteCollection = async (req, res) => {
 const showCardsInOneCollection = async (req, res) => {
   const collectionId = req.params.coll;
   const allCards = await Collection.findAll({
+    order: [['id']],
     include: { model: Card },
     where: { id: collectionId },
     raw: true,
@@ -67,6 +68,7 @@ const showCardsInOneCollection = async (req, res) => {
 const showCardsInOneCollectionFetch = async (req, res) => {
   const collectionId = req.params.coll;
   const allCards = await Collection.findAll({
+    order: [['id']],
     include: { model: Card },
     where: { id: collectionId },
     raw: true,
