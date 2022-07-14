@@ -100,11 +100,10 @@ const createNewCardAndCiC = async (req, res) => {
   const doWeHave = await CardInCollection.findOne({ where: { collectionId, cardId } });
   // записываем промежуточную таблицу
   if (!doWeHave) {
-    const findCard = await Card.findOne({ where: { id: cardId } });
     const curretnCol = await Collection.findOne({ where: { id: collectionId } });
     curretnCol.allCount += 1;
     curretnCol.price = String((Number(curretnCol.price) + Number(price)).toFixed(2));
-    if (findCard.accessible) {
+    if (card[0].accessible) {
       curretnCol.ownedCount += 1;
     }
     await curretnCol.save();
