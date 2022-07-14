@@ -18,7 +18,8 @@ const renderFetch = require('../lib/renderFetch');
 
 // отрисовываем страницу добавления карт в коллекцию
 const showCollectionPage = (req, res) => {
-  render(NewCollection, {}, res);
+  const login = req.session?.user?.login;
+  render(NewCollection, { login }, res);
 };
 
 // отрисовываем страницу добавления карт в коллекцию с помощью фетча
@@ -29,19 +30,19 @@ const showCollectionPageFetch = (req, res) => {
 // отрисовываем страницу со всеми коллекциями (toDo: доделать)
 // ДЛЯ КНОПКИ В КОЛЛЕКЦИИ В ЛЕВОМ ВЕРХНЕМ УГЛУ
 const showAllCollectionsFetch = async (req, res) => {
-  const name = req.session?.user;
   const userId = req.session.user.id;
   const collections = await Collection.findAll({ where: { userId } });
-  renderFetch(HomeCollect, { login: name }, res);
+  renderFetch(HomeCollect, { collections }, res);
 };
 
 /* -------------------------------------- */
 
 // отрисовываем страницу со всеми коллекциями (toDo: доделать)
 const showAllCollections = async (req, res) => {
-  const userId = req.session.user.id;
+  const login = req.session?.user?.login;
+  const userId = req.session?.user?.id;
   const collections = await Collection.findAll({ where: { userId } });
-  render(Collections, { collections }, res);
+  render(Collections, { collections, login }, res);
 };
 
 const deleteCollection = async (req, res) => {
@@ -55,13 +56,14 @@ const deleteCollection = async (req, res) => {
 
 // отрисовываем стринацу конкретной коллекции
 const showCardsInOneCollection = async (req, res) => {
+  const login = req.session?.user?.login;
   const collectionId = req.params.coll;
   const allCards = await Collection.findAll({
     include: { model: Card },
     where: { id: collectionId },
     raw: true,
   });
-  render(CardsInCollection, { allCards }, res);
+  render(CardsInCollection, { allCards, login }, res);
 };
 // отрисовываем стринацу конкретной коллекции с помощью фетча
 const showCardsInOneCollectionFetch = async (req, res) => {
@@ -141,4 +143,5 @@ module.exports = {
   showCardsInOneCollectionFetch,
   deleteCollection,
   patchCardInCollectionFetch,
+  showAllCollectionsFetch,
 };

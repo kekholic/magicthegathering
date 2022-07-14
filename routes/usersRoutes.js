@@ -14,12 +14,15 @@ const {
   showCardsInOneCollectionFetch,
   deleteCollection,
   patchCardInCollectionFetch,
+  showAllCollectionsFetch,
 } = require('../controller/usersRoutes');
 // отрисовка страницы создания коллекции
 usersRoutes.get('/:id/collections/:coll/new', showCollectionPage);
 // отрисовка страницы создания коллекции с помощью фетча
 usersRoutes.get('/:id/collections/:coll/new/fetch', showCollectionPageFetch);
 // отрисовка страницы со всеми коллекциями
+usersRoutes.get('/:id/collections/a', showAllCollectionsFetch);
+
 usersRoutes.get('/:id/collections', showAllCollections);
 // удаляем коллекцию из дб
 usersRoutes.delete('/:id/collections/fetch', deleteCollection);
@@ -34,6 +37,6 @@ usersRoutes.post('/:id/collections/:coll/new', createNewCardAndCiC);
 // создание новой таблицы и внесение её в дб
 usersRoutes.post('/:id/collections/new', createNewCollection);
 
-usersRoutes.get('/:id/collections', isAuth, showAllCollections);
+// usersRoutes.get('/:id/collections/buttons', isAuth, showAllCollectionsFetch);
 
 module.exports = usersRoutes;

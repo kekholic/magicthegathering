@@ -2,9 +2,9 @@ const React = require('react');
 
 const Layout = require('../Layout');
 
-module.exports = function NewCollection() {
+module.exports = function NewCollection({ login }) {
   return (
-    <Layout>
+    <Layout login={login}>
       <img src="/images/mtgLogo.png" alt="mtgLogo" />
       <div className="input-group mb-3">
         <input data-id-search="search-input" type="text" className="form-control" placeholder="Find the Magic" aria-label="Recipient's username" aria-describedby="button-addon2" />

@@ -12,7 +12,7 @@ const Login = require('../views/register/Login');
 const HomeNavbar = require('../views/Navbar/HomeNavbar');
 const HomeCollect = require('../views/Navbar/HomeCollect');
 
-const { User } = require('../db/models');
+const { User, Collection } = require('../db/models');
 const renderFetch = require('../lib/renderFetch');
 
 exports.getRegistrationFormFetch = (req, res) => {
@@ -44,8 +44,12 @@ exports.registration = async (req, res) => {
       lastSignin: new Date(),
     });
 
+    const userId = user.id;
+
+    const collections = await Collection.findAll({ where: { userId } });
+
     req.session.user = { id: user.id, login: user.login };
-    renderFrontWithId(HomeCollect, { id: user.id }, res);
+    renderFrontWithId(HomeCollect, { id: user.id, collections }, res);
   } catch (error) {
     console.log('error: ', error.message);
     failAuth(res, { message: 'Ошибка регистрации. Повторите попытку.' });
@@ -64,8 +68,12 @@ exports.login = async (req, res) => {
     user.lastSignin = new Date();
     user.save();
 
+    const userId = user.id;
+
+    const collections = await Collection.findAll({ where: { userId } });
+
     req.session.user = { id: user.id, login: user.login };
-    renderFrontWithId(HomeCollect, { login, id: user.id }, res);
+    renderFrontWithId(HomeCollect, { login, id: user.id, collections }, res);
   } catch (error) {
     console.log('error: ', error.message);
     failAuth(res, { message: 'Неудалось войти. Повторите попытку.' });

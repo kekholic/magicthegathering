@@ -3,9 +3,9 @@ const React = require('react');
 const Layout = require('../Layout');
 const CollectionItem = require('../Components/CollectionItem');
 
-module.exports = function NewCollection({ collections }) {
+module.exports = function NewCollection({ collections, login }) {
   return (
-    <Layout>
+    <Layout login={login}>
       {collections
         && collections.map((collection) => (
           <CollectionItem collection={collection} key={collection.id} />
