@@ -82,10 +82,12 @@ container.addEventListener('click', async (event) => {
           password,
         }),
       });
-      const { html } = await response.json();
+      const { html, err } = await response.json();
+      if (err) {
+        return alert(err);
+      }
       container.innerHTML = html;
       logoutBtn.hidden = false;
-
       const userId = await getUserId();
       window.history.pushState(null, null, `/users/${userId}/collections`);
     } catch (error) {
@@ -249,10 +251,10 @@ container.addEventListener('click', async (event) => {
   if (event.target.classList.contains('incrementButton')) {
     const userId = getIdFromUrl(0);
     const collectionId = getIdFromUrl(1);
-    const { cardId } = event.target.previousElementSibling.dataset;
-    const img = event.target.previousElementSibling;
-    const span = event.target.previousElementSibling.previousElementSibling.previousElementSibling;
-    console.log(span);
+    const { cardId } = event.target.previousElementSibling.previousElementSibling.dataset;
+    const img = event.target.previousElementSibling.previousElementSibling;
+    console.log(img);
+    const span = event.target.previousElementSibling;
     const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`, {
       method: 'PATCH',
       headers: {
@@ -264,8 +266,9 @@ container.addEventListener('click', async (event) => {
       }),
     });
     if (response.status === 200) {
+      const accessible = await response.json();
       img.className = 'notGray';
-      span.innerHTML = String(Number(span.innerHTML) + Number(1));
+      span.innerHTML = `Количество: ${accessible}`;
     }
   }
 });
@@ -284,7 +287,6 @@ containerFluid.addEventListener('click', async (event) => {
       console.log('error: ', error.message);
     }
   }
-
 
   if (event.target.id === 'getLogoutCollect') {
     try {
