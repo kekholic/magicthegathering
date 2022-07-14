@@ -2,7 +2,7 @@ const React = require('react');
 
 module.exports = function getRegisterForm() {
   return (
-    <form method="POST">
+    <form>
       <div className="mb-3">
         <label htmlFor="inputNameRegister" className="form-label">Введите имя:</label>
         <input type="name" className="form-control" id="inputNameRegister" aria-describedby="emailHelp" />
@@ -15,7 +15,7 @@ module.exports = function getRegisterForm() {
         <label htmlFor="inputPasswordRegister" className="form-label">Введите пароль:</label>
         <input type="password" className="form-control" id="inputPasswordRegister" />
       </div>
-      <button type="submit" id='getRegister' className="btn btn-primary">Отправить</button>
+      <button type="submit" id="getRegister" className="btn btn-primary">Отправить</button>
     </form>
   );
 };

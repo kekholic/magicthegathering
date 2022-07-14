@@ -15,7 +15,7 @@ container.addEventListener('click', async (event) => {
   // перейти к форме регистрации
   if (event.target.id === 'go-register') {
     try {
-      const response = await fetch('/auth/register');
+      const response = await fetch('/auth/register/fetch');
       const { html } = await response.json();
       container.innerHTML = html;
       window.history.pushState(null, null, '/auth/register');
@@ -45,7 +45,10 @@ container.addEventListener('click', async (event) => {
         const { html, id } = await response.json();
         container.innerHTML = html;
         logoutBtn.hidden = false;
-        // window.history.pushState(null, null, '/auth/login');
+
+        const userId = getIdFromUrl(0);
+        window.history.pushState(null, null, `/users/${userId}/collections`);
+
       }
     } catch (error) {
       console.log('error: ', error);
@@ -54,7 +57,7 @@ container.addEventListener('click', async (event) => {
   // перейти к форме логина
   if (event.target.id === 'go-login') {
     try {
-      const response = await fetch('/auth/login');
+      const response = await fetch('/auth/login/fetch');
       const { html } = await response.json();
       container.innerHTML = html;
       window.history.pushState(null, null, '/auth/login');
@@ -80,6 +83,10 @@ container.addEventListener('click', async (event) => {
       const { html, id } = await response.json();
       container.innerHTML = html;
       logoutBtn.hidden = false;
+
+const userId = getIdFromUrl(0);
+      window.history.pushState(null, null, `/users/${userId}/collections`);
+
     } catch (error) {
       console.log('error: ', error);
     }
@@ -213,6 +220,7 @@ container.addEventListener('click', async (event) => {
       cardBody.remove();
     }
   }
+
   // добавление количества карт в колоду
   if (event.target.classList.contains('incrementButton')) {
     const userId = getIdFromUrl(0);
@@ -248,9 +256,10 @@ container.addEventListener('click', async (event) => {
       console.log('error: ', error.message);
     }
   }
+
 });
 
-// Добавление выйти из сессии
+// Слушатель навбара
 containerFluid.addEventListener('click', async (event) => {
   event.preventDefault();
   if (event.target.id === 'getLogout') {
@@ -259,82 +268,37 @@ containerFluid.addEventListener('click', async (event) => {
       const { html } = await response.json();
       container.innerHTML = html;
       logoutBtn.hidden = true;
+      window.history.pushState(null, null, '/home');
     } catch (error) {
       console.log('error: ', error.message);
     }
   }
 
-  // зарегистрироваться
-  if (event.target.id === 'getRegister') {
-    const name = document.querySelector('#inputNameRegister').value;
-    const login = document.querySelector('#inputLoginRegister').value;
-    const password = document.querySelector('#inputPasswordRegister').value;
-    try {
-      const response = await fetch('/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name,
-          login,
-          password,
-        }),
-      });
-      if (response.status === 401) console.log('Невалидные данные');
-      else {
-        const { html } = await response.json();
-        container.innerHTML = html;
+  // fast route to receive userId
+  // container.dataset.userId =
 
-        // fast route to receive userId
-        // container.dataset.userId =
-        // window.history.pushState(null, null, '/auth/login');
-      }
-    } catch (error) {
-      console.log('error: ', error);
-    }
-  }
-  // перейти к форме логина
-  if (event.target.id === 'go-login') {
-    try {
-      const response = await fetch('/auth/login');
-      const { html } = await response.json();
-      container.innerHTML = html;
-      window.history.pushState(null, null, '/auth/login');
-    } catch (error) {
-      console.log('error: ', error.message);
-    }
-  }
   if (event.target.id === 'getLogoutCollect') {
     try {
-      const userId = getIdFromUrl(0);
-      const response = await fetch(`/users/${userId}/collections`);
+
+      const id = await getUserId();
+      console.log('id: ', id);
+      const response = await fetch(`/users/${id}/collections`);
+
       const { html } = await response.json();
       container.innerHTML = html;
     } catch (error) {
       console.log('error: ', error.message);
-    }
-  }
-
-  // залогиниться
-  if (event.target.id === 'getLogin') {
-    const login = document.querySelector('#inputLoginLogin').value;
-    const password = document.querySelector('#inputPasswordLogin').value;
-    try {
-      const response = await fetch('/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          login,
-          password,
-        }),
-      });
-      const { html } = await response.json();
-      container.innerHTML = html;
-    } catch (error) {
-      console.log('error: ', error);
     }
   }
 });
+
+async function getUserId() {
+  try {
+    const response = await fetch('/id');
+    const { id } = await response.json();
+    // console.log('id: ', id);
+    return id;
+  } catch (error) {
+    console.log('error: ', error.message);
+  }
+}

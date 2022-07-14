@@ -15,9 +15,9 @@ const sessionConfig = require('./lib/sessionConfig');
 
 // импорт роутов
 const indexRoutes = require('./routes/indexRoutes');
+const idRouter = require('./routes/idRouter');
 
 const usersRoutes = require('./routes/usersRoutes');
-// const apiRoutes = require('./routes/apiRoutes');
 const apiRoutes = require('./routes/apiRoutes');
 
 const homeRouters = require('./routes/homeRouters');
@@ -31,6 +31,7 @@ app.use(session(sessionConfig));
 
 // роутеры
 app.use('/', indexRoutes);
+app.use('/id', idRouter);
 
 app.use('/users', usersRoutes);
 app.use('/api', apiRoutes);
