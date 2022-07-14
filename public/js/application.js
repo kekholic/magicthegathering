@@ -46,9 +46,8 @@ container.addEventListener('click', async (event) => {
         container.innerHTML = html;
         logoutBtn.hidden = false;
 
-        const userId = getIdFromUrl(0);
+        const userId = await getUserId();
         window.history.pushState(null, null, `/users/${userId}/collections`);
-
       }
     } catch (error) {
       console.log('error: ', error);
@@ -84,9 +83,8 @@ container.addEventListener('click', async (event) => {
       container.innerHTML = html;
       logoutBtn.hidden = false;
 
-const userId = getIdFromUrl(0);
+      const userId = await getUserId();
       window.history.pushState(null, null, `/users/${userId}/collections`);
-
     } catch (error) {
       console.log('error: ', error);
     }
@@ -256,7 +254,6 @@ const userId = getIdFromUrl(0);
       console.log('error: ', error.message);
     }
   }
-
 });
 
 // Слушатель навбара
@@ -279,7 +276,6 @@ containerFluid.addEventListener('click', async (event) => {
 
   if (event.target.id === 'getLogoutCollect') {
     try {
-
       const id = await getUserId();
       console.log('id: ', id);
       const response = await fetch(`/users/${id}/collections`);
