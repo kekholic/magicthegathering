@@ -47,7 +47,7 @@ exports.registration = async (req, res) => {
 
     const userId = user.id;
 
-    const collections = await Collection.findAll({ where: { userId } });
+    const collections = await Collection.findAll({ where: { userId }, order: [['id']] });
 
     req.session.user = { id: user.id, login: user.login };
     renderFrontWithId(HomeCollect, { id: user.id, collections }, res);
@@ -61,24 +61,25 @@ exports.login = async (req, res) => {
   const { login, password } = req.body;
   try {
     const user = await User.findOne({ where: { login } });
-    if (!user) failAuth(res, 'Неверное имя или пароль!');
+    if (!user) return failAuth(res, 'Неверное имя или пароль!');
 
     const isValidPassword = await bcrypt.compare(password, user.password);
-    if (!isValidPassword) failAuth(res, 'Неверное имя или пароль!!');
+    if (!isValidPassword) return failAuth(res, 'Неверное имя или пароль!!');
 
     user.lastSignin = new Date();
     user.save();
 
     const userId = user.id;
 
-    const collections = await Collection.findAll({ where: { userId } });
+    const collections = await Collection.findAll({ where: { userId }, order: [['id']] });
 
     req.session.user = { id: user.id, login: user.login };
 
-    renderFrontWithId(HomeCollect, { login, id: user.id, collections }, res);
+    return renderFrontWithId(HomeCollect, { login, id: user.id, collections }, res);
   } catch (error) {
+    console.log('zashli 0000000000000000000000000000000');
     console.log('error: ', error.message);
-    failAuth(res, { message: 'Неудалось войти. Повторите попытку.' });
+    return failAuth(res, { message: 'Неудалось войти. Повторите попытку.' });
   }
 };
 
