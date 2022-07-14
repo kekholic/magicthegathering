@@ -264,7 +264,6 @@ containerFluid.addEventListener('click', async (event) => {
   if (event.target.id === 'getLogoutCollect') {
     try {
       const id = await getUserId();
-
       const response = await fetch(`/users/${id}/collections/a`);
       const { html } = await response.json();
       container.innerHTML = html;

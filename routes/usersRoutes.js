@@ -21,9 +21,9 @@ usersRoutes.get('/:id/collections/:coll/new', showCollectionPage);
 // отрисовка страницы создания коллекции с помощью фетча
 usersRoutes.get('/:id/collections/:coll/new/fetch', showCollectionPageFetch);
 // отрисовка страницы со всеми коллекциями
-usersRoutes.get('/:id/collections/a', showAllCollectionsFetch);
+usersRoutes.get('/:id/collections/a', isAuth, showAllCollectionsFetch);
 
-usersRoutes.get('/:id/collections', showAllCollections);
+usersRoutes.get('/:id/collections', isAuth, showAllCollections);
 // удаляем коллекцию из дб
 usersRoutes.delete('/:id/collections/fetch', deleteCollection);
 // отрисовываем страницу с картами данной коллекции

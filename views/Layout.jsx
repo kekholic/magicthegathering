@@ -34,7 +34,7 @@ function Layout({ title, children, login }) {
                   {
                     login ? (
                       <li className="nav-item">
-                        <a className="nav-link active" id="getLogout" hidden href="#">Выйти</a>
+                        <a className="nav-link active" id="getLogout" href="#">Выйти</a>
                       </li>
                     ) : (
                       null
