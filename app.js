@@ -39,6 +39,7 @@ app.use('/api', apiRoutes);
 app.use('/home', homeRouters);
 app.use('/auth', authRoutes);
 
+
 const PORT = process.env.PORT || 3100;
 
 app.listen(PORT, () => {

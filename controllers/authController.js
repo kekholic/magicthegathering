@@ -14,6 +14,7 @@ const HomeCollect = require('../views/Navbar/HomeCollect');
 
 const { User, Collection } = require('../db/models');
 const renderFetch = require('../lib/renderFetch');
+const Collections = require('../views/users/Collections');
 
 exports.getRegistrationFormFetch = (req, res) => {
   renderFront(RegisterFetch, null, res);
@@ -73,6 +74,7 @@ exports.login = async (req, res) => {
     const collections = await Collection.findAll({ where: { userId } });
 
     req.session.user = { id: user.id, login: user.login };
+
     renderFrontWithId(HomeCollect, { login, id: user.id, collections }, res);
   } catch (error) {
     console.log('error: ', error.message);

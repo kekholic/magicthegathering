@@ -93,8 +93,14 @@ const createNewCardAndCiC = async (req, res) => {
     price,
     image,
   } = req.body;
+  const userId = req.session.user.id;
   // записываем карточку в дб или ищем существующую
-  const card = await Card.findOrCreate({ where: { title, price, image }, raw: true });
+  const card = await Card.findOrCreate({
+    where: {
+      title, price, image, userId,
+    },
+    raw: true,
+  });
   const cardId = card[0].id;
   const doWeHave = await CardInCollection.findOne({ where: { collectionId, cardId } });
   // записываем промежуточную таблицу
