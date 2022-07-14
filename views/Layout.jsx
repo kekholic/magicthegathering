@@ -40,16 +40,16 @@ function Layout({ title, children, login }) {
                       <a className="nav-link active" id="getLogoutCollect" aria-current="page" href="/users/:id/collections">Мои коллекции</a>
                     </li>
                     {
-                    login ? (
-                      <li className="nav-item">
-                        <a className="nav-link active" id="getLogout" display= href="#">Выйти</a>
-                      </li>
-                    ) : (
-                      <li className="nav-item">
-                        <a className="nav-link active" id="getLogout" hidden="true" href="#">Выйти</a>
-                      </li>
-                    )
-                  }
+                      login ? (
+                        <li className="nav-item">
+                          <a className="nav-link active" id="getLogout" style={{ hidden: "true" }} href="#">Выйти</a>
+                        </li>
+                      ) : (
+                        <li className="nav-item">
+                          <a className="nav-link active" id="getLogout" hidden="true" href="#">Выйти</a>
+                        </li>
+                      )
+                    }
                   </ul>
                 </div>
               </div>
@@ -63,9 +63,8 @@ function Layout({ title, children, login }) {
           </main>
 
           <footer className="bg-light text-center text-lg-start">
-            <div className="text-center p-3" style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
-              © 2020 Copyright:
-              <a className="text-dark" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+            <div className="text-center p-3" style={{ backgroundColor: 'rgb(248, 249, 250)' }}>
+              <p>Все права защищены</p>
             </div>
           </footer>
         </div>

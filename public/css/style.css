@@ -21,12 +21,14 @@ body {
 }
 
 .container {
-
-
+  display: flex;
+  justify-content: center;
   padding-right: 15px;
   padding-left: 15px;
   margin-right: auto;
   margin-left: auto;
+  align-items: center;
+  flex-direction: column;
 }
 
 .buttons {
@@ -38,29 +40,12 @@ body {
 .btn-first {
   width: 160px;
   margin-top: 20px;
+  background-color: rgb(220, 52, 16);
 }
 
 
 footer {
   margin-top: 20px;
-}
-
-@media (min-width: 768px) {
-  .container {
-    width: 750px;
-  }
-}
-
-@media (min-width: 992px) {
-  .container {
-    width: 970px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .container {
-    width: 1170px;
-  }
 }
 
 .card-img {
@@ -73,4 +58,94 @@ footer {
 
 .notGray {
   filter: grayscale(0)
+}
+
+p.card-text {
+  padding-left: 15%;
+  padding-right: 15%;
+  font-size: 1.2rem;
+}
+
+.card {
+  border: none;
+}
+
+#getRegister {
+  margin-left: 30%;
+  background-color: rgb(220, 52, 16);
+}
+
+#getLogin {
+  margin-left: 30%;
+  background-color: rgb(220, 52, 16);
+}
+
+.fixContainer {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  flex-direction: column
+}
+
+.fixCardInput {
+  margin-top: 10%;
+  max-width: 50%;
+}
+
+.fixCardInputbtn {
+  color: white;
+  background-color: rgb(220, 52, 16);
+}
+
+.fixCardInputAdd {
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
+
+.add-card-button {
+  background-color: rgb(220, 52, 16);
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 750px;
+  }
+
+  img {
+    width: 240px;
+  }
+
+  .fixCardInput {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+
+  img {
+    width: 340px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+
+  img {
+    width: 440px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+
+  img {
+    width: 540px;
+  }
 }
