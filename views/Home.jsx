@@ -13,8 +13,8 @@ module.exports = function Home({ login }) {
             Для доступа к функционалу сайта пройдите регистрацию, либо войдите в ваш аккаунт
           </p>
           <div className="buttons">
-            <button type="button" id="go-register" className="btn btn-secondary btn-danger btn-first">Регистрация</button>
-            <button type="button" id="go-login" className="btn btn-secondary btn-danger btn-first">Вход</button>
+            <button type="button" id="go-register" className="btn btn-secondary btn-lg btn-first">Регистрация</button>
+            <button type="button" id="go-login" className="btn btn-secondary btn-lg btn-first">Вход</button>
           </div>
         </div>
       </div>
