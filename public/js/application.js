@@ -2,7 +2,12 @@ const container = document.querySelector('.container');
 const containerFluid = document.querySelector('.container-fluid');
 const logoutBtn = document.querySelector('#getLogout');
 
-let userId;
+const getIdFromUrl = (num) => {
+  const currentlyUrl = window.document.location.pathname;
+  const regExp = /\d+/igm;
+  const Id = currentlyUrl.match(regExp)[num];
+  return Id;
+};
 
 container.addEventListener('click', async (event) => {
   event.preventDefault();
@@ -40,8 +45,10 @@ container.addEventListener('click', async (event) => {
         const { html, id } = await response.json();
         container.innerHTML = html;
         logoutBtn.hidden = false;
-        userId = id;
+
+        const userId = getIdFromUrl(0);
         window.history.pushState(null, null, `/users/${userId}/collections`);
+
       }
     } catch (error) {
       console.log('error: ', error);
@@ -76,8 +83,10 @@ container.addEventListener('click', async (event) => {
       const { html, id } = await response.json();
       container.innerHTML = html;
       logoutBtn.hidden = false;
-      userId = id;
+
+const userId = getIdFromUrl(0);
       window.history.pushState(null, null, `/users/${userId}/collections`);
+
     } catch (error) {
       console.log('error: ', error);
     }
@@ -86,9 +95,7 @@ container.addEventListener('click', async (event) => {
   if (event.target.dataset.idButton === 'create-button') {
     const titleNewCollection = document.querySelector("[data-id-input = 'create-input']").value;
     // отправляем фетч с созданием новой коллекции
-    const currentlyUrl = window.document.location.pathname;
-    const regExp = /\d+/igm;
-    const userId = currentlyUrl.match(regExp)[0];
+    const userId = getIdFromUrl(0);
     const response = await fetch(`http://localhost:3000/users/${userId}/collections/new`, {
       method: 'POST',
       headers: {
@@ -122,10 +129,9 @@ container.addEventListener('click', async (event) => {
     );
     const result = await response.json();
     let count = 0;
-    const currentlyUrl = window.document.location.pathname;
-    const regExp = /\d+/igm;
+
     // достаем айди коллекции
-    const collectionId = currentlyUrl.match(regExp)[1];
+    const collectionId = getIdFromUrl(1);
     while (count < 12 && count < result.total_cards) {
       // достаем ссылку картинки карточки
       const imageUrl = result.data[count].image_uris.border_crop;
@@ -158,8 +164,9 @@ container.addEventListener('click', async (event) => {
       count += 1;
     }
   }
-
+  // добавление карточки в дб
   if (event.target.classList.contains('add-card-button')) {
+    const userId = getIdFromUrl(0);
     // достаю айди коллекции в которую будем добавлять карточку
     const collectionId = event.target.dataset.collId;
     // достаю имя коллекции которое будем добавлять в дб
@@ -186,6 +193,7 @@ container.addEventListener('click', async (event) => {
 
   // изменение колоды
   if (event.target.dataset.editColl === 'edit-coll') {
+    const userId = getIdFromUrl(0);
     // eslint-disable-next-line max-len
     const collectionId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
     const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`);
@@ -195,6 +203,7 @@ container.addEventListener('click', async (event) => {
   }
   // удаление коллекции из дб и страницы
   if (event.target.dataset.deleteColl === 'delete-coll') {
+    const userId = getIdFromUrl(0);
     // eslint-disable-next-line max-len
     const collectionId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
     const cardBody = event.target.parentElement.parentElement.parentElement;
@@ -211,8 +220,43 @@ container.addEventListener('click', async (event) => {
       cardBody.remove();
     }
   }
-  // incriment of cards
-  // if (event.target.class)
+
+  // добавление количества карт в колоду
+  if (event.target.classList.contains('incrementButton')) {
+    const userId = getIdFromUrl(0);
+    const collectionId = getIdFromUrl(1);
+    const { cardId } = event.target.previousElementSibling.dataset;
+    const img = event.target.previousElementSibling;
+    const paragraph = event.target.previousElementSibling.previousElementSibling;
+    console.log(img);
+    const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        collectionId,
+        cardId,
+      }),
+    });
+    if (response.status === 200) {
+      img.className = 'notGray';
+      paragraph.innerHTML = String(Number(paragraph.innerHTML) + Number(1));
+    }
+  }
+
+  // перейти к форме регистрации
+  if (event.target.id === 'go-register') {
+    try {
+      const response = await fetch('/auth/register');
+      const { html } = await response.json();
+      container.innerHTML = html;
+      window.history.pushState(null, null, '/auth/register');
+    } catch (error) {
+      console.log('error: ', error.message);
+    }
+  }
+
 });
 
 // Слушатель навбара
@@ -235,9 +279,11 @@ containerFluid.addEventListener('click', async (event) => {
 
   if (event.target.id === 'getLogoutCollect') {
     try {
+
       const id = await getUserId();
       console.log('id: ', id);
       const response = await fetch(`/users/${id}/collections`);
+
       const { html } = await response.json();
       container.innerHTML = html;
     } catch (error) {

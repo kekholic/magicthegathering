@@ -94,41 +94,20 @@ const createNewCardAndCiC = async (req, res) => {
     image,
   } = req.body;
   // записываем карточку в дб или ищем существующую
-  // FIX BUGX IVAN
   const card = await Card.findOrCreate({ where: { title, price, image }, raw: true });
   const cardId = card[0].id;
   const doWeHave = await CardInCollection.findOne({ where: { collectionId, cardId } });
   // записываем промежуточную таблицу
   if (!doWeHave) {
+    await CardInCollection.create({ collectionId, cardId });
     const curretnCol = await Collection.findOne({ where: { id: collectionId } });
     curretnCol.allCount += 1;
     curretnCol.price = String((Number(curretnCol.price) + Number(price)).toFixed(2));
-    if (card[0].accessible) {
-      curretnCol.ownedCount += 1;
-    }
     await curretnCol.save();
-    await CardInCollection.create({ collectionId, cardId });
     res.status(200).json();
   } else {
     res.status(200).json();
   }
-};
-
-/* -------------------------------------- */
-
-// меняем количество имеющихся карт
-const patchCardInCollectionFetch = async (req, res) => {
-  const { cardId, collectionId } = req.body;
-  const card = await Card.findOne({ where: { id: cardId } });
-  console.log(card);
-  card.accessible += 1;
-  await card.save();
-  if (card.accessible === 1) {
-    const collection = await Collection.findOne({ where: { id: collectionId } });
-    collection.ownedCount += 1;
-    await collection.save();
-  }
-  return res.status(200).json();
 };
 
 module.exports = {
@@ -140,5 +119,4 @@ module.exports = {
   showCardsInOneCollection,
   showCardsInOneCollectionFetch,
   deleteCollection,
-  patchCardInCollectionFetch,
 };
