@@ -117,7 +117,7 @@ p.card-text {
 }
 
 .fixCardInput {
-  margin-top: 10%;
+  margin-top: 5%;
   max-width: 50%;
 }
 
@@ -127,8 +127,8 @@ p.card-text {
 }
 
 .fixCardInputAdd {
-  margin-top: 4%;
-  margin-bottom: 4%;
+  margin-top: 2%;
+  margin-bottom: 3%;
   color: white;
   background-color: rgb(220, 52, 16);
   --bs-btn-color: #6c757d;
@@ -156,6 +156,21 @@ p.card-text {
 .add-card-button2 {
   color: white;
   background-color: rgb(220, 52, 16);
+  --bs-btn-color: #6c757d;
+  --bs-btn-border-color: #6c757d;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #6c757d;
+  --bs-btn-hover-border-color: #6c757d;
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #6c757d;
+  --bs-btn-active-border-color: #6c757d;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #6c757d;
+  --bs-btn-disabled-bg: transparent;
+  --bs-gradient: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
@@ -175,6 +190,10 @@ p.card-text {
   border-bottom-right-radius: 5px;
 }
 
+.fixFlex {
+  justify-content: flex-start;
+}
+
 @media (max-width: 768px) {
   .container {
     width: 750px;
@@ -184,7 +203,7 @@ p.card-text {
     width: 240px;
   }
 
-  .fixCardInput {
+.fixCardInput {
     max-width: 100%;
   }
 }

@@ -153,8 +153,8 @@ container.addEventListener('click', async (event) => {
       // создаем кнопку для возомжности добавлять карточку в коллекцию
       const addButton = document.createElement('button');
       addButton.dataset.collId = collectionId;
-      addButton.classList = 'add-card-button';
-      addButton.innerText = 'add';
+      addButton.classList = 'add-card-button btn btn-secondary add-card-button2';
+      addButton.innerText = 'Добавить';
       // добавляю картинку и сохраняем её данные
       const img = document.createElement('img');
       img.classList = 'my-card card-img-top';
@@ -252,9 +252,10 @@ container.addEventListener('click', async (event) => {
     const userId = getIdFromUrl(0);
     const collectionId = getIdFromUrl(1);
     const { cardId } = event.target.previousElementSibling.previousElementSibling.dataset;
+    console.log(cardId);
     const img = event.target.previousElementSibling.previousElementSibling;
-    console.log(img);
-    const span = event.target.previousElementSibling;
+    const span = event.target.previousElementSibling.firstChild;
+    console.log(span);
     const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`, {
       method: 'PATCH',
       headers: {
@@ -268,7 +269,7 @@ container.addEventListener('click', async (event) => {
     if (response.status === 200) {
       const accessible = await response.json();
       img.className = 'notGray';
-      span.innerHTML = `Количество: ${accessible}`;
+      span.innerHTML = `Кол-во: ${accessible}`;
     }
   }
 });

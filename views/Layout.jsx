@@ -42,7 +42,7 @@ function Layout({ title, children, login }) {
                     {
                       login ? (
                         <li className="nav-item">
-                          <a className="nav-link active" id="getLogout" style={{ hidden: "true" }} href="#">Выйти</a>
+                          <a className="nav-link active" id="getLogout" style={{ hidden: 'true' }} href="#">Выйти</a>
                         </li>
                       ) : (
                         <li className="nav-item">
