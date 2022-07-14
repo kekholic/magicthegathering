@@ -4,7 +4,8 @@ function CardInCollectionItem({ card }) {
   return (
     <div className="col">
       <div className="card">
-        <p className="card-text">{`${card['Cards.accessible']}`}</p>
+        <span className="card-text">{`${card['Cards.accessible']}`}</span>
+        <span className="card-text">{`${card['Cards.price']} USD`}</span>
         {card['Cards.accessible'] === 0 ? <img className="gray" data-card-id={`${card['Cards.id']}`} src={`${card['Cards.image']}`} alt="cardImage" />
           : <img className="notGray" data-card-id={`${card['Cards.id']}`} src={`${card['Cards.image']}`} alt="cardImage" />}
         <button className="incrementButton btn btn-light" type="button">add</button>
