@@ -131,15 +131,18 @@ const patchCardInCollectionFetch = async (req, res) => {
   // console.log(card);
   card.accessible += 1;
   await card.save();
-  const allCollectionsUserSameCard = await Collection.findAll({ include: { model: Card, where: { title: card.title } }, where: { userId: req.session.user.id }, raw: true });
-  console.log(allCollectionsUserSameCard);
+
   // const allCollectionUser = await Collection.findAll({ where: { userId: req.session.user.id } });
   if (card.accessible === 1) {
     const collection = await Collection.findOne({ where: { id: collectionId } });
-    collection.ownedCount += 1;
+    const allCollectionsUserSameCard = await Collection.findAll({ include: { model: Card, where: { title: card.title } }, where: { userId: req.session.user.id } });
+
+    for (const collectionOne of allCollectionsUserSameCard) {
+      collectionOne.ownedCount += 1;
+      await collectionOne.save();
+    }
 
     // if card in other collection same user then other collection owned count +1
-    await collection.save();
   }
   return res.status(200).json();
 };
