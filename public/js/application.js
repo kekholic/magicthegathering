@@ -246,8 +246,8 @@ container.addEventListener('click', async (event) => {
     const collectionId = getIdFromUrl(1);
     const { cardId } = event.target.previousElementSibling.dataset;
     const img = event.target.previousElementSibling;
-    const paragraph = event.target.previousElementSibling.previousElementSibling;
-    console.log(img);
+    const span = event.target.previousElementSibling.previousElementSibling.previousElementSibling;
+    console.log(span);
     const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`, {
       method: 'PATCH',
       headers: {
@@ -260,7 +260,7 @@ container.addEventListener('click', async (event) => {
     });
     if (response.status === 200) {
       img.className = 'notGray';
-      paragraph.innerHTML = String(Number(paragraph.innerHTML) + Number(1));
+      span.innerHTML = String(Number(span.innerHTML) + Number(1));
     }
   }
 
@@ -292,8 +292,7 @@ containerFluid.addEventListener('click', async (event) => {
     }
   }
 
-  // fast route to receive userId
-  // container.dataset.userId =
+
 
   if (event.target.id === 'getLogoutCollect') {
     try {

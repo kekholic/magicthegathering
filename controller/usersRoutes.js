@@ -94,8 +94,16 @@ const createNewCardAndCiC = async (req, res) => {
     image,
   } = req.body;
   // записываем карточку в дб или ищем существующую
-  // FIX BUGX IVAN
-  const card = await Card.findOrCreate({ where: { title, price, image }, raw: true });
+  const userId = req.session.user.id;
+  const card = await Card.findOrCreate({
+    where: {
+      title,
+      price,
+      image,
+      userId,
+    },
+    raw: true,
+  });
   const cardId = card[0].id;
   const doWeHave = await CardInCollection.findOne({ where: { collectionId, cardId } });
   // записываем промежуточную таблицу
@@ -120,12 +128,17 @@ const createNewCardAndCiC = async (req, res) => {
 const patchCardInCollectionFetch = async (req, res) => {
   const { cardId, collectionId } = req.body;
   const card = await Card.findOne({ where: { id: cardId } });
-  console.log(card);
+  // console.log(card);
   card.accessible += 1;
   await card.save();
+  const allCollectionsUserSameCard = await Collection.findAll({ include: { model: Card, where: { title: card.title } }, where: { userId: req.session.user.id }, raw: true });
+  console.log(allCollectionsUserSameCard);
+  // const allCollectionUser = await Collection.findAll({ where: { userId: req.session.user.id } });
   if (card.accessible === 1) {
     const collection = await Collection.findOne({ where: { id: collectionId } });
     collection.ownedCount += 1;
+
+    // if card in other collection same user then other collection owned count +1
     await collection.save();
   }
   return res.status(200).json();
