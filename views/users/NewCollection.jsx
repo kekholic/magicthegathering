@@ -5,7 +5,7 @@ const Layout = require('../Layout');
 module.exports = function NewCollection({ login }) {
   return (
     <Layout login={login}>
-      <img src="/images/mtgLogo.png" alt="mtgLogo" />
+      <img id="imgNew" src="/images/mtgLogo.png" alt="mtgLogo" />
       <div className="input-group mb-3 fixCardInput">
         <input data-id-search="search-input" type="text" className="form-control" placeholder="Введите название карты" aria-label="Recipient's username" aria-describedby="button-addon2" />
         <button data-id-button="search-button" className="btn btn-outline-secondary fixCardInputbtn" type="button" id="button-addon2">Найти</button>

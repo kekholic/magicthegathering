@@ -5,10 +5,10 @@ function CardInCollectionItem({ card }) {
     <div className="col">
       <div className="card">
         <span className="card-text">{`${card['Cards.accessible']}`}</span>
-        <span className="card-text">{`${card['Cards.price']} USD`}</span>
+        <span className="card-text">Цена: {`${card['Cards.price']} USD`}</span>
         {card['Cards.accessible'] === 0 ? <img className="gray" data-card-id={`${card['Cards.id']}`} src={`${card['Cards.image']}`} alt="cardImage" />
           : <img className="notGray" data-card-id={`${card['Cards.id']}`} src={`${card['Cards.image']}`} alt="cardImage" />}
-        <button className="incrementButton btn btn-light" type="button">add</button>
+        <button className="incrementButton add-card-button" type="button">Добавить</button>
       </div>
     </div>
   );

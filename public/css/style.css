@@ -38,6 +38,7 @@ body {
 }
 
 .btn-first {
+  color: white;
   width: 160px;
   margin-top: 20px;
   background-color: rgb(220, 52, 16);
@@ -71,12 +72,12 @@ p.card-text {
 }
 
 #getRegister {
-  margin-left: 30%;
+  margin-left: 23%;
   background-color: rgb(220, 52, 16);
 }
 
 #getLogin {
-  margin-left: 30%;
+  margin-left: 23%;
   background-color: rgb(220, 52, 16);
 }
 
@@ -100,10 +101,29 @@ p.card-text {
 .fixCardInputAdd {
   margin-top: 4%;
   margin-bottom: 4%;
+  background-color: rgb(220, 52, 16);
 }
 
 .add-card-button {
+  color: white;
   background-color: rgb(220, 52, 16);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.btnAdd {
+  color: white;
+  background-color: rgb(220, 52, 16);
+  margin-top: 5%;
+}
+
+.addCartButton {
+  color: white;
+  background-color: rgb(220, 52, 16);
+  border: none;
+  --bs-btn-border-color: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
 }
 
 @media (max-width: 768px) {
@@ -111,7 +131,7 @@ p.card-text {
     width: 750px;
   }
 
-  img {
+  #imgNew {
     width: 240px;
   }
 
@@ -125,7 +145,7 @@ p.card-text {
     width: 750px;
   }
 
-  img {
+  #imgNew {
     width: 340px;
   }
 }
@@ -135,7 +155,7 @@ p.card-text {
     width: 970px;
   }
 
-  img {
+  #imgNew {
     width: 440px;
   }
 }
@@ -145,7 +165,7 @@ p.card-text {
     width: 1170px;
   }
 
-  img {
+  #imgNew {
     width: 540px;
   }
 }
