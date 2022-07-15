@@ -3,6 +3,17 @@ const containerFluid = document.querySelector('.container-fluid');
 const logoutBtn = document.querySelector('#getLogout');
 const url = 'https://mtgeagles.herokuapp.com';
 
+async function getUserId() {
+  try {
+    const response = await fetch('/id');
+    const { id } = await response.json();
+    console.log(id);
+    return id;
+  } catch (error) {
+    console.log('error: ', error.message);
+  }
+}
+
 const getIdFromUrl = (num) => {
   const currentlyUrl = window.document.location.pathname;
   const regExp = /\d+/igm;
@@ -52,6 +63,7 @@ container.addEventListener('click', async (event) => {
       logoutBtn.hidden = false;
 
       const userId = await getUserId();
+      console.log('USEERID INSIDE', userId);
       logoutBtn.hidden = false;
       window.history.pushState(null, null, `/users/${userId}/collections`);
     } catch (error) {
@@ -303,14 +315,3 @@ containerFluid.addEventListener('click', async (event) => {
     }
   }
 });
-
-async function getUserId() {
-  try {
-    const response = await fetch('/id');
-    const { id } = await response.json();
-    console.log(id);
-    return id;
-  } catch (error) {
-    console.log('error: ', error.message);
-  }
-}
