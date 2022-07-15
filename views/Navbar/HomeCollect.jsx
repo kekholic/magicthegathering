@@ -8,10 +8,12 @@ module.exports = function NewCollection({ collections }) {
         <input type="text" data-id-input="create-input" className="form-control" placeholder="Введите название коллекции" />
         <button type="submit" data-id-button="create-button" className="btn btn-outline-secondary fixCardInputbtn">Создать</button>
       </div>
-      {collections
+      <div className="collection-home-items">
+        {collections
         && collections.map((collection) => (
           <CollectionItem collection={collection} key={collection.id} />
         ))}
+      </div>
     </>
   );
 };

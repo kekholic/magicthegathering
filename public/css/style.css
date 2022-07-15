@@ -57,7 +57,7 @@ footer {
 }
 
 .text-center {
-  background-color: transparent;
+  /* background-color: transparent; */
 }
 
 .new-title {
@@ -91,6 +91,12 @@ p.card-text {
 
 .card {
   border: none;
+}
+
+.frontTitle {
+  --bs-card-bg: rgba(0, 0, 0, 0.4);
+  border: 3px solid black;
+  padding: 3%;
 }
 
 .btn-register {
@@ -223,6 +229,43 @@ p.card-text {
   background-color: black;
   padding-top: 1%;
   padding-bottom: 1%;
+}
+
+.newCardBody {
+  --bs-card-bg: rgba(0, 0, 0, 0.4);
+  border: 3px solid black;
+  text-shadow: 0 0 10px #000000;
+  color: rgb(161, 191, 208);
+}
+
+.collection-home-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 5%;
+}
+
+.one-card-collection {
+  margin-left: 3%;
+}
+
+.card-img-several {
+  display: flex;
+  justify-content: space-around;
+  margin: 2% 2% 0 2%;
+}
+
+.zag {
+  text-align: center;
+}
+
+.card-img-top-collection {
+  /* max-width: 20%; */
+}
+
+.mbbb {
+  text-align: center;
 }
 
 @media (max-width: 768px) {
