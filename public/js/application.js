@@ -5,7 +5,7 @@ const url = 'https://mtgeagles.herokuapp.com';
 
 async function getUserId() {
   try {
-    const response = await fetch('/id');
+    const response = await fetch(`${url}/id`);
     const { id } = await response.json();
     console.log(id);
     return id;
@@ -27,7 +27,7 @@ container.addEventListener('click', async (event) => {
   // перейти к форме регистрации
   if (event.target.id === 'go-register') {
     try {
-      const response = await fetch('/auth/register/fetch');
+      const response = await fetch(`${url}/auth/register/fetch`);
       const { html } = await response.json();
       container.innerHTML = html;
       logoutBtn.hidden = false;
@@ -42,7 +42,7 @@ container.addEventListener('click', async (event) => {
     const login = document.querySelector('#inputLoginRegister').value;
     const password = document.querySelector('#inputPasswordRegister').value;
     try {
-      const response = await fetch('/auth/register', {
+      const response = await fetch(`${url}/auth/register`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -73,7 +73,7 @@ container.addEventListener('click', async (event) => {
   // перейти к форме логина
   if (event.target.id === 'go-login') {
     try {
-      const response = await fetch('/auth/login/fetch');
+      const response = await fetch(`${url}/auth/login/fetch`);
       const { html } = await response.json();
       container.innerHTML = html;
       logoutBtn.hidden = false;
@@ -87,7 +87,7 @@ container.addEventListener('click', async (event) => {
     const login = document.querySelector('#inputLoginLogin').value;
     const password = document.querySelector('#inputPasswordLogin').value;
     try {
-      const response = await fetch('/auth/login', {
+      const response = await fetch(`${url}/auth/login`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -292,7 +292,7 @@ containerFluid.addEventListener('click', async (event) => {
   event.preventDefault();
   if (event.target.id === 'getLogout') {
     try {
-      const response = await fetch('/auth/logout');
+      const response = await fetch(`${url}/auth/logout`);
       const { html } = await response.json();
       container.innerHTML = html;
       logoutBtn.hidden = true;
@@ -305,7 +305,7 @@ containerFluid.addEventListener('click', async (event) => {
   if (event.target.id === 'getLogoutCollect') {
     try {
       const id = await getUserId();
-      const response = await fetch(`/users/${id}/collections/a`);
+      const response = await fetch(`${url}/users/${id}/collections/a`);
       const { html } = await response.json();
       container.innerHTML = html;
       logoutBtn.hidden = false;
