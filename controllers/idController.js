@@ -1,4 +1,4 @@
 exports.getIdUser = (req, res) => {
-  const id = req.session?.user?.id;
+  const id = req.session?.user;
   res.json({ id });
 };
