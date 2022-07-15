@@ -102,7 +102,7 @@ container.addEventListener('click', async (event) => {
     const titleNewCollection = document.querySelector("[data-id-input = 'create-input']").value;
     // отправляем фетч с созданием новой коллекции
     const userId = getIdFromUrl(0);
-    const response = await fetch(`http://localhost:3000/users/${userId}/collections/new`, {
+    const response = await fetch(`${url}/users/${userId}/collections/new`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -114,11 +114,11 @@ container.addEventListener('click', async (event) => {
     });
     const { collectionId } = await response.json();
     // отправляем гет запрос на отрисовку создания новой коллекции
-    const repsonse1 = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new/fetch`);
+    const repsonse1 = await fetch(`${url}/users/${userId}/collections/${collectionId}/new/fetch`);
     const { html, err } = await repsonse1.json();
     container.innerHTML = html;
     logoutBtn.hidden = false;
-    window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}/new`);
+    window.history.pushState(null, null, `${url}/users/${userId}/collections/${collectionId}/new`);
   }
 
   // search smth for route /users/:id/collections/new w/o any fetch
@@ -129,7 +129,7 @@ container.addEventListener('click', async (event) => {
     const { value } = input;
 
     const response = await fetch(
-      `http://localhost:3000/api/search/${value}`,
+      `${url}/api/search/${value}`,
       {
         credentials: 'include',
       },
@@ -182,7 +182,7 @@ container.addEventListener('click', async (event) => {
     const collectionPrice = event.target.previousElementSibling.dataset.price;
     // достаем ссылку на картинку, которую будем добавлять в дб
     const img = event.target.previousElementSibling.src;
-    const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new`, {
+    const response = await fetch(`${url}/users/${userId}/collections/${collectionId}/new`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -203,31 +203,31 @@ container.addEventListener('click', async (event) => {
     const userId = getIdFromUrl(0);
     // eslint-disable-next-line max-len
     const collectionId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
-    const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`);
+    const response = await fetch(`${url}/users/${userId}/collections/${collectionId}/fetch`);
     const html = await response.json();
     container.innerHTML = html.html;
     logoutBtn.hidden = false;
-    window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}`);
+    window.history.pushState(null, null, `${url}/users/${userId}/collections/${collectionId}`);
   }
 
   // кнопка перехода на добавления карт в колоду ИЗ созданной колоды
   if (event.target.dataset.name === 'add-cards') {
     const userId = getIdFromUrl(0);
     const collectionId = getIdFromUrl(1);
-    const repsonse1 = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new/fetch`);
+    const repsonse1 = await fetch(`${url}/users/${userId}/collections/${collectionId}/new/fetch`);
     const { html } = await repsonse1.json();
     container.innerHTML = html;
-    window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}/new`);
+    window.history.pushState(null, null, `${url}/users/${userId}/collections/${collectionId}/new`);
   }
 
   // кнопка возврата из окна добавления карт в коллекцию на страницу коллекции
   if (event.target.dataset.idButton === 'save-collection') {
     const userId = getIdFromUrl(0);
     const collectionId = getIdFromUrl(1);
-    const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`);
+    const response = await fetch(`${url}/users/${userId}/collections/${collectionId}/fetch`);
     const html = await response.json();
     container.innerHTML = html.html;
-    window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}`);
+    window.history.pushState(null, null, `${url}/users/${userId}/collections/${collectionId}`);
   }
 
   // удаление коллекции из дб и страницы
@@ -236,7 +236,7 @@ container.addEventListener('click', async (event) => {
     // eslint-disable-next-line max-len
     const collectionId = event.target.parentElement.parentElement.parentElement.parentElement.dataset.id;
     const cardBody = event.target.parentElement.parentElement.parentElement;
-    const response = await fetch(`http://localhost:3000/users/${userId}/collections/fetch`, {
+    const response = await fetch(`${url}/users/${userId}/collections/fetch`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
@@ -257,7 +257,7 @@ container.addEventListener('click', async (event) => {
     const { cardId } = event.target.previousElementSibling.previousElementSibling.dataset;
     const img = event.target.previousElementSibling.previousElementSibling;
     const span = event.target.previousElementSibling.firstChild;
-    const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`, {
+    const response = await fetch(`${url}/users/${userId}/collections/${collectionId}/fetch`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
