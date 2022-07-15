@@ -2,6 +2,7 @@ const container = document.querySelector('.container');
 const containerFluid = document.querySelector('.container-fluid');
 const logoutBtn = document.querySelector('#getLogout');
 const url = 'https://mtgeagles.herokuapp.com';
+// smth
 
 async function getUserId() {
   try {
