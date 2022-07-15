@@ -115,7 +115,7 @@ container.addEventListener('click', async (event) => {
     const { collectionId } = await response.json();
     // отправляем гет запрос на отрисовку создания новой коллекции
     const repsonse1 = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/new/fetch`);
-    const { html } = await repsonse1.json();
+    const { html, err } = await repsonse1.json();
     container.innerHTML = html;
     logoutBtn.hidden = false;
     window.history.pushState(null, null, `http://localhost:3000/users/${userId}/collections/${collectionId}/new`);

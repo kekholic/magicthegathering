@@ -19,3 +19,9 @@ exports.isAuth = (req, res, next) => {
   if (req.session?.user) return next();
   return res.redirect('/auth/login');
 };
+
+exports.isCorrect = (req, res, next) => {
+  if (req.session.user.id === req.params.id) return next();
+  const message = 'Status 401: ошибка доступа';
+  return res.status(401).json(message);
+};
