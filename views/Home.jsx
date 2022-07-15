@@ -5,7 +5,7 @@ module.exports = function Home({ login }) {
   return (
     <Layout login={login}>
 
-      <div className="card text-center">
+      <div className="card text-center frontTitle">
         <img src="/images/firstPage.png" className="card-img-top" alt="FirstPageLogo" />
         <div className="card-body">
           <h3 className="card-title new-title">Добро пожаловать в Magic: The Gathering Collections</h3>

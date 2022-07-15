@@ -2,7 +2,7 @@ const React = require('react');
 
 module.exports = function HomeNavbar() {
   return (
-    <div className="card text-center">
+    <div className="card text-center frontTitle">
       <img src="/images/firstPage.png" className="card-img-top" alt="FirstPageLogo" />
       <div className="card-body">
         <h3 className="card-title new-title">Добро пожаловать в Magic: The Gathering Collections</h3>
