@@ -1,6 +1,7 @@
 const container = document.querySelector('.container');
 const containerFluid = document.querySelector('.container-fluid');
 const logoutBtn = document.querySelector('#getLogout');
+const url = 'https://mtgeagles.herokuapp.com/';
 
 const getIdFromUrl = (num) => {
   const currentlyUrl = window.document.location.pathname;
@@ -41,16 +42,18 @@ container.addEventListener('click', async (event) => {
           password,
         }),
       });
-      if (response.status === 401) console.log('Невалидные данные');
-      else {
-        const { html } = await response.json();
-        container.innerHTML = html;
-        logoutBtn.hidden = false;
-
-        const userId = await getUserId();
-        logoutBtn.hidden = false;
-        window.history.pushState(null, null, `/users/${userId}/collections`);
+      if (response.status === 401) {
+        const error = await response.json();
+        console.log(error);
+        return alert(error.message);
       }
+      const { html } = await response.json();
+      container.innerHTML = html;
+      logoutBtn.hidden = false;
+
+      const userId = await getUserId();
+      logoutBtn.hidden = false;
+      window.history.pushState(null, null, `/users/${userId}/collections`);
     } catch (error) {
       console.log('error: ', error);
     }
@@ -252,10 +255,8 @@ container.addEventListener('click', async (event) => {
     const userId = getIdFromUrl(0);
     const collectionId = getIdFromUrl(1);
     const { cardId } = event.target.previousElementSibling.previousElementSibling.dataset;
-    console.log(cardId);
     const img = event.target.previousElementSibling.previousElementSibling;
     const span = event.target.previousElementSibling.firstChild;
-    console.log(span);
     const response = await fetch(`http://localhost:3000/users/${userId}/collections/${collectionId}/fetch`, {
       method: 'PATCH',
       headers: {
