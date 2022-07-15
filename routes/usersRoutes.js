@@ -15,9 +15,14 @@ const {
   deleteCollection,
   patchCardInCollectionFetch,
   showAllCollectionsFetch,
-} = require('../controller/usersRoutes');
-// отрисовка страницы создания коллекции
-usersRoutes.get('/:id/collections/:coll/new', showCollectionPage);
+} = require('../controllers/usersRoutes');
+
+usersRoutes.route('/:id/collections/:coll/new')
+  // отрисовка страницы создания коллекции
+  .get(showCollectionPage)
+  // заполняем карту в бд
+  .post(createNewCardAndCiC);
+
 // отрисовка страницы создания коллекции с помощью фетча
 usersRoutes.get('/:id/collections/:coll/new/fetch', showCollectionPageFetch);
 // отрисовка страницы со всеми коллекциями
@@ -28,12 +33,14 @@ usersRoutes.get('/:id/collections', isAuth, showAllCollections);
 usersRoutes.delete('/:id/collections/fetch', deleteCollection);
 // отрисовываем страницу с картами данной коллекции
 usersRoutes.get('/:id/collections/:coll', showCardsInOneCollection);
-// отрисовываем страницу с картами данной коллекции с помощью фетча
-usersRoutes.get('/:id/collections/:coll/fetch', showCardsInOneCollectionFetch);
-// изменяем количество имеющих карт в колоде
-usersRoutes.patch('/:id/collections/:coll/fetch', patchCardInCollectionFetch);
-// заполняем карту в бд
-usersRoutes.post('/:id/collections/:coll/new', createNewCardAndCiC);
+
+usersRoutes
+  .route('/:id/collections/:coll/fetch')
+  // отрисовываем страницу с картами данной коллекции с помощью фетча
+  .get(showCardsInOneCollectionFetch)
+  // изменяем количество имеющих карт в колоде
+  .patch(patchCardInCollectionFetch);
+
 // создание новой таблицы и внесение её в дб
 usersRoutes.post('/:id/collections/new', createNewCollection);
 

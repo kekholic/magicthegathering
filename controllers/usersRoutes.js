@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const NewCollection = require('../views/users/NewCollection');
 
 const Collections = require('../views/users/Collections');
@@ -18,7 +19,8 @@ const renderFetch = require('../lib/renderFetch');
 
 // отрисовываем страницу добавления карт в коллекцию
 const showCollectionPage = (req, res) => {
-  render(NewCollection, {}, res);
+  const login = req.session?.user?.login;
+  render(NewCollection, { login }, res);
 };
 
 // отрисовываем страницу добавления карт в коллекцию с помощью фетча
@@ -29,19 +31,19 @@ const showCollectionPageFetch = (req, res) => {
 // отрисовываем страницу со всеми коллекциями (toDo: доделать)
 // ДЛЯ КНОПКИ В КОЛЛЕКЦИИ В ЛЕВОМ ВЕРХНЕМ УГЛУ
 const showAllCollectionsFetch = async (req, res) => {
-  const name = req.session?.user;
   const userId = req.session.user.id;
   const collections = await Collection.findAll({ where: { userId }, order: [['id']] });
-  renderFetch(HomeCollect, { login: name }, res);
+  renderFetch(HomeCollect, { collections }, res);
 };
 
 /* -------------------------------------- */
 
 // отрисовываем страницу со всеми коллекциями (toDo: доделать)
 const showAllCollections = async (req, res) => {
-  const userId = req.session.user.id;
+  const login = req.session?.user?.login;
+  const userId = req.session?.user?.id;
   const collections = await Collection.findAll({ where: { userId }, order: [['id']] });
-  render(Collections, { collections }, res);
+  render(Collections, { collections, login }, res);
 };
 
 const deleteCollection = async (req, res) => {
@@ -55,6 +57,7 @@ const deleteCollection = async (req, res) => {
 
 // отрисовываем стринацу конкретной коллекции
 const showCardsInOneCollection = async (req, res) => {
+  const login = req.session?.user?.login;
   const collectionId = req.params.coll;
   const allCards = await Collection.findAll({
     order: [['id']],
@@ -62,7 +65,7 @@ const showCardsInOneCollection = async (req, res) => {
     where: { id: collectionId },
     raw: true,
   });
-  render(CardsInCollection, { allCards }, res);
+  render(CardsInCollection, { allCards, login }, res);
 };
 // отрисовываем стринацу конкретной коллекции с помощью фетча
 const showCardsInOneCollectionFetch = async (req, res) => {
@@ -95,11 +98,14 @@ const createNewCardAndCiC = async (req, res) => {
     price,
     image,
   } = req.body;
-  const userId = req.session.user.id;
   // записываем карточку в дб или ищем существующую
+  const userId = req.session.user.id;
   const card = await Card.findOrCreate({
     where: {
-      title, price, image, userId,
+      title,
+      price,
+      image,
+      userId,
     },
     raw: true,
   });
@@ -107,15 +113,38 @@ const createNewCardAndCiC = async (req, res) => {
   const doWeHave = await CardInCollection.findOne({ where: { collectionId, cardId } });
   // записываем промежуточную таблицу
   if (!doWeHave) {
-    await CardInCollection.create({ collectionId, cardId });
     const curretnCol = await Collection.findOne({ where: { id: collectionId } });
     curretnCol.allCount += 1;
     curretnCol.price = String((Number(curretnCol.price) + Number(price)).toFixed(2));
+    if (card[0].accessible) {
+      curretnCol.ownedCount += 1;
+    }
     await curretnCol.save();
+    await CardInCollection.create({ collectionId, cardId });
     res.status(200).json();
   } else {
     res.status(200).json();
   }
+};
+
+/* -------------------------------------- */
+
+// меняем количество имеющихся карт
+const patchCardInCollectionFetch = async (req, res) => {
+  const { cardId, collectionId } = req.body;
+  const card = await Card.findOne({ where: { id: cardId } });
+  card.accessible += 1;
+  await card.save();
+  if (card.accessible === 1) {
+    // eslint-disable-next-line max-len
+    const allCollectionsUserSameCard = await Collection.findAll({ include: { model: Card, where: { title: card.title } }, where: { userId: req.session.user.id }, order: [['id']] });
+    for (const collectionOne of allCollectionsUserSameCard) {
+      collectionOne.ownedCount += 1;
+      await collectionOne.save();
+    }
+    // if card in other collection same user then other collection owned count +1
+  }
+  return res.status(200).json(card.accessible);
 };
 
 module.exports = {
@@ -127,4 +156,6 @@ module.exports = {
   showCardsInOneCollection,
   showCardsInOneCollectionFetch,
   deleteCollection,
+  patchCardInCollectionFetch,
+  showAllCollectionsFetch,
 };
