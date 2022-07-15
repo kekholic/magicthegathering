@@ -46,10 +46,12 @@ exports.registration = async (req, res) => {
     });
 
     const userId = user.id;
+    console.log('object', user);
+    console.log('id', user.id);
 
     const collections = await Collection.findAll({ where: { userId }, order: [['id']] });
 
-    req.session.user = { id: userId, login: user.login };
+    req.session.user = { id: user.id, login: user.login };
     console.log(req.session);
     renderFrontWithId(HomeCollect, { id: user.id, collections }, res);
   } catch (error) {
