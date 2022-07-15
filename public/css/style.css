@@ -1,6 +1,8 @@
 html,
 body {
   height: 100%;
+  background-image: url(/images/wallpaper5.png);
+  background-size: cover;
 }
 
 .wrapper {
@@ -18,6 +20,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+
 }
 
 .container {
@@ -41,12 +44,31 @@ body {
   color: white;
   width: 160px;
   margin-top: 20px;
-  background-color: rgb(220, 52, 16);
+  background-color: rgb(186, 42, 37);
 }
 
 
 footer {
   margin-top: 20px;
+}
+
+.form-label {
+  color: white;
+}
+
+.text-center {
+  background-color: transparent;
+}
+
+.new-title {
+  margin-bottom: 3%;
+  text-shadow: 0 0 10px #000000;
+  color: rgb(161, 191, 208);
+}
+
+.new-text {
+  text-shadow: 0 0 10px #000000;
+  color: rgb(161, 191, 208);
 }
 
 .card-img {
@@ -74,7 +96,7 @@ p.card-text {
 .btn-register {
   margin-left: 18%;
   color: white;
-  background-color: rgb(220, 52, 16);
+  background-color: rgb(186, 42, 37);
   --bs-btn-color: #6c757d;
   --bs-btn-border-color: #6c757d;
   --bs-btn-hover-color: #fff;
@@ -93,7 +115,7 @@ p.card-text {
 .btn-login {
   margin-left: 18%;
   color: white;
-  background-color: rgb(220, 52, 16);
+  background-color: rgb(186, 42, 37);
   --bs-btn-color: #6c757d;
   --bs-btn-border-color: #6c757d;
   --bs-btn-hover-color: #fff;
@@ -123,14 +145,14 @@ p.card-text {
 
 .fixCardInputbtn {
   color: white;
-  background-color: rgb(220, 52, 16);
+  background-color: rgb(186, 42, 37);
 }
 
 .fixCardInputAdd {
   margin-top: 2%;
   margin-bottom: 3%;
   color: white;
-  background-color: rgb(220, 52, 16);
+  background-color: rgb(186, 42, 37);
   --bs-btn-color: #6c757d;
   --bs-btn-border-color: #6c757d;
   --bs-btn-hover-color: #fff;
@@ -148,14 +170,14 @@ p.card-text {
 
 .add-card-button {
   color: white;
-  background-color: rgb(220, 52, 16);
+  background-color: rgb(186, 42, 37);
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
 }
 
 .add-card-button2 {
   color: white;
-  background-color: rgb(220, 52, 16);
+  background-color: rgb(186, 42, 37);
   --bs-btn-color: #6c757d;
   --bs-btn-border-color: #6c757d;
   --bs-btn-hover-color: #fff;
@@ -177,13 +199,13 @@ p.card-text {
 
 .btnAdd {
   color: white;
-  background-color: rgb(220, 52, 16);
+  background-color: rgb(186, 42, 37);
   margin-top: 5%;
 }
 
 .addCartButton {
   color: white;
-  background-color: rgb(220, 52, 16);
+  background-color: rgb(186, 42, 37);
   border: none;
   --bs-btn-border-color: none;
   border-bottom-left-radius: 5px;
@@ -192,6 +214,15 @@ p.card-text {
 
 .fixFlex {
   justify-content: flex-start;
+}
+
+.not-used {
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  background-color: black;
+  padding-top: 1%;
+  padding-bottom: 1%;
 }
 
 @media (max-width: 768px) {
@@ -203,7 +234,7 @@ p.card-text {
     width: 240px;
   }
 
-.fixCardInput {
+  .fixCardInput {
     max-width: 100%;
   }
 }

@@ -64,7 +64,7 @@ function Layout({ title, children, login }) {
 
           <footer className="bg-light text-center text-lg-start">
             <div className="text-center p-3" style={{ backgroundColor: 'rgb(248, 249, 250)' }}>
-              <p>Все права защищены</p>
+              <h6>Все права защищены</h6>
             </div>
           </footer>
         </div>
