@@ -1,0 +1,316 @@
+html,
+body {
+  height: 100%;
+  background-image: url(/images/wallpaper5.png);
+  background-size: cover;
+}
+
+.wrapper {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.collapse.navbar-collapse {
+  flex-grow: 0;
+}
+
+.main {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  align-items: center;
+  flex-direction: column;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.btn-first {
+  color: white;
+  width: 160px;
+  margin-top: 20px;
+  background-color: rgb(186, 42, 37);
+}
+
+
+footer {
+  margin-top: 20px;
+}
+
+.form-label {
+  color: white;
+}
+
+.text-center {
+  /* background-color: transparent; */
+}
+
+.new-title {
+  margin-bottom: 3%;
+  text-shadow: 0 0 10px #000000;
+  color: rgb(161, 191, 208);
+}
+
+.new-text {
+  text-shadow: 0 0 10px #000000;
+  color: rgb(161, 191, 208);
+}
+
+.card-img {
+  width: 200px;
+}
+
+.gray {
+  filter: grayscale(1)
+}
+
+.notGray {
+  filter: grayscale(0)
+}
+
+p.card-text {
+  padding-left: 15%;
+  padding-right: 15%;
+  font-size: 1.2rem;
+}
+
+.card {
+  border: none;
+}
+
+.frontTitle {
+  --bs-card-bg: rgba(0, 0, 0, 0.4);
+  border: 3px solid black;
+  padding: 3%;
+}
+
+.btn-register {
+  margin-left: 18%;
+  color: white;
+  background-color: rgb(186, 42, 37);
+  --bs-btn-color: #6c757d;
+  --bs-btn-border-color: #6c757d;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #6c757d;
+  --bs-btn-hover-border-color: #6c757d;
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #6c757d;
+  --bs-btn-active-border-color: #6c757d;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #6c757d;
+  --bs-btn-disabled-bg: transparent;
+  --bs-gradient: none;
+}
+
+.btn-login {
+  margin-left: 18%;
+  color: white;
+  background-color: rgb(186, 42, 37);
+  --bs-btn-color: #6c757d;
+  --bs-btn-border-color: #6c757d;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #6c757d;
+  --bs-btn-hover-border-color: #6c757d;
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #6c757d;
+  --bs-btn-active-border-color: #6c757d;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #6c757d;
+  --bs-btn-disabled-bg: transparent;
+  --bs-gradient: none;
+}
+
+.fixContainer {
+  display: flex;
+  justify-content: center;
+  max-width: 100%;
+  flex-direction: column
+}
+
+.fixCardInput {
+  margin-top: 5%;
+  max-width: 50%;
+}
+
+.fixCardInputbtn {
+  color: white;
+  background-color: rgb(186, 42, 37);
+}
+
+.fixCardInputAdd {
+  margin-top: 2%;
+  margin-bottom: 3%;
+  color: white;
+  background-color: rgb(186, 42, 37);
+  --bs-btn-color: #6c757d;
+  --bs-btn-border-color: #6c757d;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #6c757d;
+  --bs-btn-hover-border-color: #6c757d;
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #6c757d;
+  --bs-btn-active-border-color: #6c757d;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #6c757d;
+  --bs-btn-disabled-bg: transparent;
+  --bs-gradient: none;
+}
+
+.add-card-button {
+  color: white;
+  background-color: rgb(186, 42, 37);
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.add-card-button2 {
+  color: white;
+  background-color: rgb(186, 42, 37);
+  --bs-btn-color: #6c757d;
+  --bs-btn-border-color: #6c757d;
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: #6c757d;
+  --bs-btn-hover-border-color: #6c757d;
+  --bs-btn-focus-shadow-rgb: 108, 117, 125;
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: #6c757d;
+  --bs-btn-active-border-color: #6c757d;
+  --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+  --bs-btn-disabled-color: #6c757d;
+  --bs-btn-disabled-bg: transparent;
+  --bs-gradient: none;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.btnAdd {
+  color: white;
+  background-color: rgb(186, 42, 37);
+  margin-top: 5%;
+}
+
+.addCartButton {
+  color: white;
+  background-color: rgb(186, 42, 37);
+  border: none;
+  --bs-btn-border-color: none;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.fixFlex {
+  justify-content: flex-start;
+}
+
+.not-used {
+  display: flex;
+  justify-content: space-around;
+  color: white;
+  background-color: black;
+  padding-top: 1%;
+  padding-bottom: 1%;
+}
+
+.newCardBody {
+  --bs-card-bg: rgba(0, 0, 0, 0.4);
+  border: 3px solid black;
+  text-shadow: 0 0 10px #000000;
+  color: rgb(161, 191, 208);
+}
+
+.collection-home-items {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin-top: 5%;
+}
+
+.one-card-collection {
+  margin-left: 3%;
+}
+
+.card-img-several {
+  display: flex;
+  justify-content: space-around;
+  margin: 2% 2% 0 2%;
+}
+
+.zag {
+  text-align: center;
+}
+
+.card-img-top-collection {
+  /* max-width: 20%; */
+}
+
+.mbbb {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 750px;
+  }
+
+  #imgNew {
+    width: 240px;
+  }
+
+  .fixCardInput {
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    width: 750px;
+  }
+
+  #imgNew {
+    width: 340px;
+  }
+}
+
+@media (min-width: 992px) {
+  .container {
+    width: 970px;
+  }
+
+  #imgNew {
+    width: 440px;
+  }
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
+
+  #imgNew {
+    width: 540px;
+  }
+}

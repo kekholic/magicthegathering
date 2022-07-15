@@ -1,0 +1,19 @@
+const React = require('react');
+
+module.exports = function HomeNavbar() {
+  return (
+    <div className="card text-center frontTitle">
+      <img src="/images/firstPage.png" className="card-img-top" alt="FirstPageLogo" />
+      <div className="card-body">
+        <h3 className="card-title new-title">Добро пожаловать в Magic: The Gathering Collections</h3>
+        <p className="card-text new-text">На нашем сайте вы можете собрать коллекцию интересующих вас карт для игры в Magic: The Gathering.
+          Для доступа к функционалу сайта пройдите регистрацию, либо войдите в ваш аккаунт
+        </p>
+        <div className="buttons">
+          <button type="button" id="go-register" className="btn btn-secondary btn-lg btn-first">Регистрация</button>
+          <button type="button" id="go-login" className="btn btn-secondary btn-lg btn-first">Вход</button>
+        </div>
+      </div>
+    </div>
+  );
+};
