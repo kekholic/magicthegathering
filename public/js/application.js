@@ -308,6 +308,7 @@ async function getUserId() {
   try {
     const response = await fetch('/id');
     const { id } = await response.json();
+    console.log(id);
     return id;
   } catch (error) {
     console.log('error: ', error.message);
