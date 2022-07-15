@@ -16,7 +16,7 @@ function collectionItem({ collection }) {
           <p>Цена: {collection.price}$</p>
           <p>Карт в коллекции: {collection.ownedCount}/{collection.allCount}</p>
           <p>Создано: {collection.createdAt.toLocaleDateString('ru-RU')}</p>
-          <p className="mb-0 mbbb">
+          <div className="mb-0 mbbb">
             <button
               type="button"
               data-edit-coll="edit-coll"
@@ -31,7 +31,7 @@ function collectionItem({ collection }) {
             >
               Удалить
             </button>
-          </p>
+          </div>
         </div>
       </div>
     </div>
