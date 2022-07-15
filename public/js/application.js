@@ -60,6 +60,7 @@ container.addEventListener('click', async (event) => {
         return alert(error.message);
       }
       const { html } = await response.json();
+      
       container.innerHTML = html;
       logoutBtn.hidden = false;
 
